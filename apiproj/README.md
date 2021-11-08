@@ -1,4 +1,4 @@
-# apiproject
+# apiproj
 
 ## Project setup
 ```
