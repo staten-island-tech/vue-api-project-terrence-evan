@@ -1,7 +1,8 @@
 <template>
-  <section id="app">
-    <button v-on:click="hi"></button>
-  </section>
+  <div id="app">
+    <div id="nav">
+    </div>
+  </div>
 </template>
 
 <script>
