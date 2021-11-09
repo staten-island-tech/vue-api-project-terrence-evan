@@ -9,12 +9,12 @@ const routes = [
   {
     path: "/",
     name: "Home",
-    component: challenger,
+    component: search,
   },
   {
-    path: "/about",
-    name: "about",
-    component: search,
+    path: "/challenger",
+    name: "challenger",
+    component: challenger,
   },
 ];
 

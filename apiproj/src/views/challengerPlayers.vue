@@ -30,5 +30,7 @@ export default {
 </script>
 
 <style>
-
+.e{
+    font-size: 2.5rem;
+}
 </style>
