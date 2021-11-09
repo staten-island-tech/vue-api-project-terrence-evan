@@ -12,8 +12,8 @@ const routes = [
     component: challenger,
   },
   {
-    path: "/",
-    name: "Home",
+    path: "/about",
+    name: "about",
     component: search,
   },
 ];
