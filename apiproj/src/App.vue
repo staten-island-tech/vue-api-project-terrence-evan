@@ -16,7 +16,7 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap');
 
-*{
+html, body, *{
   font-size: 62.5%;
   box-sizing: border-box;
   padding: 0;
@@ -25,8 +25,8 @@
 }
 #nav{
   display: flex;
-  width: 100vw;
-  height: 8vh;
+  width: 100%;
+  height: 10vh;
   background-color:black;
   align-items: center;
 }
@@ -70,7 +70,7 @@
 }
 
 #nav a{
-  font-size: 2rem;
+  font-size: 2.5rem;
 
 }
 </style>
