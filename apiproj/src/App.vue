@@ -1,32 +1,76 @@
 <template>
   <div id="app">
     <nav id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link class="searchbar" to="/challenger">Leaderboard</router-link>
+      <div class="nav-logo">
+        <img class="nav-image" src="./assets/rito games.jpg">
+      </div>
+      <ul class="nav-list">
+        <li><router-link class="nav-list-item" to="/">Home</router-link></li>
+        <li><router-link class="nav-list-item" to="/challenger">Leaderboard</router-link></li>
+      </ul>
     </nav>
     <router-view/>
   </div>
 </template>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap');
+
 *{
   font-size: 62.5%;
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+  font-family: 'roboto', sans-serif;
 }
 #nav{
-  width: 100vw;
-  height: 5vh;
   display: flex;
-  justify-content: center;
+  width: 100vw;
+  height: 8vh;
+  background-color:black;
   align-items: center;
 }
-.searchbar{
-  padding-left: 3rem;
-}
-a{
+
+.nav-image {
   width: 10rem;
-  font-size: 2.5rem;
+
+}
+
+.nav-list {
+  display: flex;
+  align-items: center;
+  list-style-type: none;
+}
+
+.nav-list-item {
+  padding: 0rem 2.5rem;
+  text-decoration: none;
+  color: #e3e3e3;
+  position: relative;
+}
+
+
+.nav-list-item:hover {
+  color: #D85E5C;
+}
+
+.nav-list-item::after {
+  content: '';
+  height: 0.7rem;
+  background-color: #D85E5C;
+  width: 0%;
+  transition: all 0.3s;
+  display: block;
+  position: absolute;
+  bottom: -1.8rem;
+}
+
+.nav-list-item:hover::after{
+  width: 100%;
+}
+
+#nav a{
+  font-size: 2rem;
+
 }
 </style>
