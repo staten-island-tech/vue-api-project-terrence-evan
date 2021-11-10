@@ -15,8 +15,7 @@
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap');
-
-*{
+html, body, *{
   font-size: 62.5%;
   box-sizing: border-box;
   padding: 0;
@@ -25,17 +24,14 @@
 }
 #nav{
   display: flex;
-  width: 100vw;
-  height: 8vh;
+  width: 100%;
+  height: 10vh;
   background-color:black;
   align-items: center;
 }
-
 .nav-image {
   width: 10rem;
-
 }
-
 .nav-list {
   display: flex;
   align-items: center;
@@ -48,12 +44,9 @@
   color: #e3e3e3;
   position: relative;
 }
-
-
 .nav-list-item:hover {
   color: #D85E5C;
 }
-
 .nav-list-item::after {
   content: '';
   height: 0.7rem;
@@ -64,13 +57,11 @@
   position: absolute;
   bottom: -1.8rem;
 }
-
 .nav-list-item:hover::after{
   width: 100%;
 }
-
 #nav a{
-  font-size: 2rem;
+  font-size: 2.5rem;
 
 }
 </style>
