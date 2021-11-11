@@ -26,7 +26,7 @@ export default {
            console.log(requested)
            try {
                if (requested != null){
-                const response = await fetch(`https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${requested}?api_key=RGAPI-e15451d2-d884-43e5-b466-9673880bf5f2`)
+                const response = await fetch(`https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${requested}?api_key=RGAPI-33c0b8e9-6d1f-4924-8608-5bd652d4fad5`)
                 const data = await response.json()
                 this.summonerInfo = data
                }
