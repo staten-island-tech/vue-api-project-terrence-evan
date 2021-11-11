@@ -15,7 +15,6 @@
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap');
-
 html, body, *{
   font-size: 62.5%;
   box-sizing: border-box;
@@ -30,12 +29,9 @@ html, body, *{
   background-color: #121111;
   align-items: center;
 }
-
 .nav-image {
   width: 10rem;
-
 }
-
 .nav-list {
   display: flex;
   align-items: center;
@@ -48,12 +44,9 @@ html, body, *{
   color: #e3e3e3;
   position: relative;
 }
-
-
 .nav-list-item:hover {
   color: #EF5757;
 }
-
 .nav-list-item::after {
   content: '';
   height: 0.5rem;
@@ -64,11 +57,9 @@ html, body, *{
   position: absolute;
   bottom: -1.8rem;
 }
-
 .nav-list-item:hover::after{
   width: 100%;
 }
-
 #nav a{
   font-size: 2.5rem;
 
