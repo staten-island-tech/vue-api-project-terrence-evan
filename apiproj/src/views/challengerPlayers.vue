@@ -112,7 +112,7 @@ export default {
   align-items: center;
   background-color: #292929;
   text-align: center;
-  margin-top: 7rem;
+  margin-top: 16rem;
 }
 
 .challenger-container {

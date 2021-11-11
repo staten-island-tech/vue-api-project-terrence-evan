@@ -28,6 +28,7 @@ html, body, *{
   height: 10vh;
   background-color: #121111;
   align-items: center;
+  position: fixed;
 }
 .nav-image {
   width: 10rem;
