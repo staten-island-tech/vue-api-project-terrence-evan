@@ -4,8 +4,12 @@
         <input id="searchbar" type="text" placeholder="Search..." @keyup="run">
         <button class="button" type="submit"><i class="fas fa-search"></i></button>
     </div>
-    <div id="infoPage">
-        <div id="iconContainer"></div>
+    <div id="infoPage" v-for="(info, id) in summonerInfo" :key="id">
+        <div class="profilenav">
+            <div id="fillericon"></div>
+            <h1 id="fillername">{{info}}</h1>
+            <div id="filler">{{level}}</div>
+        </div>
     </div>
   </section>
 </template>
@@ -16,7 +20,8 @@ export default {
     data() {
         return {
             summonerInfo: {
-                name: {}
+                username: {},
+                level:{}
             }
         }
     },
@@ -31,8 +36,11 @@ export default {
                     const requested = e.srcElement.value
                     const response = await fetch(`https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${requested}?api_key=RGAPI-f03be3fa-6049-4f7b-8023-0d902a89652b`)
                     const data = await response.json()
-                    document.getElementById("infoPage").style.backgroundImage = `url(http://ddragon.leagueoflegends.com/cdn/11.22.1/img/profileicon/${data.profileIconId}.png)`
+                    this.summonerInfo.username = data.name
+                    this.summonerInfo.level = data.summonerLevel
+                    document.getElementById("fillericon").style.backgroundImage = `url(http://ddragon.leagueoflegends.com/cdn/11.22.1/img/profileicon/${data.profileIconId}.png)`
                     document.getElementById("infoPage").style.backgroundColor = "red"
+                    e.srcElement.value = ""
                 }
             } catch (error) {
                 console.log(error);
@@ -76,8 +84,31 @@ export default {
     font-size: 4rem;
 }
 #infoPage{
-    background-color: pink;
+    display: none;
+    flex-direction: column;
     height: 90vh;
     width: 100%;
+}
+.profilenav{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 25vh;
+    background-color: pink;
+}
+#fillericon{
+    width: 20vh;
+    height: 20vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    margin-right: 10px;
+}
+#fillername{
+    width: 20vh;
+    height: 9vh;
+    font-size: 4rem;
 }
 </style>
