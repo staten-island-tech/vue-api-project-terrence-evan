@@ -27,7 +27,7 @@ html, body, *{
   display: flex;
   width: 100%;
   height: 10vh;
-  background-color:black;
+  background-color: #121111;
   align-items: center;
 }
 
@@ -51,13 +51,13 @@ html, body, *{
 
 
 .nav-list-item:hover {
-  color: #D85E5C;
+  color: #EF5757;
 }
 
 .nav-list-item::after {
   content: '';
-  height: 0.7rem;
-  background-color: #D85E5C;
+  height: 0.5rem;
+  background-color: #B83333;
   width: 0%;
   transition: all 0.3s;
   display: block;
