@@ -62,9 +62,9 @@ export default {
     methods: {
         fetchData: async function(){
             try {
-                const response = await fetch("https://na1.api.riotgames.com/lol/league/v4/challengerleagues/by-queue/RANKED_SOLO_5x5?api_key=RGAPI-af10ad3a-5a0e-44e6-a2c6-f053f28614a7")
+                const response = await fetch("https://na1.api.riotgames.com/lol/league/v4/challengerleagues/by-queue/RANKED_SOLO_5x5?api_key=RGAPI-33c0b8e9-6d1f-4924-8608-5bd652d4fad5")
                 const data = await response.json()
-                this.challengers = data.entries
+                this.challengers = data.entries;
                 
 
                 console.log(this.challengers);
