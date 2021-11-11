@@ -69,8 +69,6 @@ export default {
         );
         const data = await response.json();
         this.challengers = data.entries;
-
-        console.log(this.challengers);
       } catch (error) {
         console.log(error);
       }
