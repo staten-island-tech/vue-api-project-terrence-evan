@@ -9,7 +9,7 @@
             <div id="fillericon"></div>
             <div class="infocontainer">
                 <h1 id="fillername">{{info.username}}</h1>
-                <div id="fillerrank">{{info.ranking}}</div>
+                <div id="fillerlevel">Level {{info.level}}</div>
             </div>
         </div>
     </div>
@@ -24,6 +24,7 @@ export default {
             summonerInfo:[
                 {
                     username:"",
+                    level:"",
                     ranking: ""
                 }
             ]
@@ -43,22 +44,36 @@ export default {
                     const requested = e.srcElement.value
                     const mainResponse = await fetch(`https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${requested}?api_key=RGAPI-57c9f734-9e2c-49e9-ab7a-9e4a70ca9c0b`)
                     const mainData = await mainResponse.json()
+                    this.summonerInfo[0].level = mainData.summonerLevel
                     this.summonerInfo[0].username = mainData.name
                     document.getElementById("fillericon").style.backgroundImage = `url(http://ddragon.leagueoflegends.com/cdn/11.22.1/img/profileicon/${mainData.profileIconId}.png)`
                     // Get rank data based on summoner ID
                     const rankResponse = await fetch(`https://na1.api.riotgames.com/lol/league/v4/entries/by-summoner/${mainData.id}?api_key=RGAPI-57c9f734-9e2c-49e9-ab7a-9e4a70ca9c0b`)
                     const rankData = await rankResponse.json()
-                    if (rankData.length === 2){
-                        rankData.forEach((element, index) =>{
-                            if (element.queueType === "RANKED_SOLO_5x5"){
-                                const rankPlace = rankData[index].tier
-                                const rankSoloDivision = rankData[index].rank
-                                const rankSolo = `${rankPlace} ${rankSoloDivision}`
-                                this.summonerInfo[0].ranking = rankSolo
-                            } 
-                        })
-                    } else if (rankData.length === 1 && rankData[0].queueType != "RANKED_SOLO_5x5"){
-                        this.summonerInfo[0].ranking = "unranked omegalul"
+                    if (rankData.length === 2 && rankData[0].queueType === "RANKED_FLEX_SR" && rankData[1].queueType === "RANKED_SOLO_5x5"){
+                        const rankPlace = rankData[1].tier
+                        const rankSoloDivision = rankData[1].rank
+                        if (rankPlace != "CHALLENGER"){
+                            const rankSolo = `${rankPlace} ${rankSoloDivision}`
+                            this.summonerInfo[0].ranking = rankSolo
+                        } else if (rankPlace === "CHALLENGER"){
+                            const rankSolo = `${rankPlace}`
+                            this.summonerInfo[0].ranking = rankSolo
+                        }
+                    } else if (rankData.length === 1 && rankData[0].queueType === "RANKED_SOLO_5x5"){
+                        const rankPlace = rankData[0].tier
+                        const rankSoloDivision = rankData[0].rank
+                        if (rankPlace != "CHALLENGER"){
+                            const rankSolo = `${rankPlace} ${rankSoloDivision}`
+                            this.summonerInfo[0].ranking = rankSolo
+                        } else if (rankPlace === "CHALLENGER"){
+                            const rankSolo = `${rankPlace}`
+                            this.summonerInfo[0].ranking = rankSolo
+                        }
+                    } else if (rankData.length === 1 && rankData[0].queueType === "RANKED_FLEX_SR"){
+                        this.summonerInfo[0].ranking = "Unranked Solo"
+                    } else if (rankData.length === 0) {
+                        this.summonerInfo[0].ranking = "Unranked omegalul"
                     }
                     e.srcElement.value = ""
                 }
@@ -83,8 +98,7 @@ export default {
     width: 100rem;
     height: 10vh;
     display: flex;
-    position: relative;
-    margin-top: 10px;
+    margin-top: 12.5vh;
     margin-bottom: 10px;
 }
 #searchbar{
@@ -128,7 +142,6 @@ export default {
 .infocontainer{
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: space-evenly;
     width: 70vw;
     height: 20vh;
@@ -140,11 +153,12 @@ export default {
     padding-left: 1rem;
     font-weight: normal;
 }
-#fillerrank{
+#fillerlevel{
+    display: flex;
+    align-items: center;
     width: 30vw;
     height: 9vh;
-    font-size: 5rem;
+    font-size: 3rem;
     padding-left: 1rem;
-    float: left;
 }
 </style>
