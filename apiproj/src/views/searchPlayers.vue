@@ -7,8 +7,10 @@
     <div id="infoPage" v-for="(info, id) in summonerInfo" :key="id">
         <div class="profilenav">
             <div id="fillericon"></div>
-            <h1 id="fillername">{{info}}</h1>
-            <div id="filler">{{level}}</div>
+            <div class="infocontainer">
+                <h1 id="fillername">{{info.username}}</h1>
+                <div id="fillerrank">{{info.ranking}}</div>
+            </div>
         </div>
     </div>
   </section>
@@ -19,10 +21,12 @@ export default {
     name: "searchbar",
     data() {
         return {
-            summonerInfo: {
-                username: {},
-                level:{}
-            }
+            summonerInfo:[
+                {
+                    username:"",
+                    ranking: ""
+                }
+            ]
         }
     },
     methods: {
@@ -31,15 +35,20 @@ export default {
                 if(e.key === "Enter"){
                     document.getElementById("searchcontainer").style.width = "75rem"
                     document.getElementById("searchcontainer").style.height = "4vh"
+                    document.getElementById("searchbar").style.fontSize = "1.75rem"
                     document.querySelector(".fas").style.fontSize = "2rem"
                     document.getElementById("infoPage").style.display = "flex"
                     const requested = e.srcElement.value
-                    const response = await fetch(`https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${requested}?api_key=RGAPI-f03be3fa-6049-4f7b-8023-0d902a89652b`)
-                    const data = await response.json()
-                    this.summonerInfo.username = data.name
-                    this.summonerInfo.level = data.summonerLevel
-                    document.getElementById("fillericon").style.backgroundImage = `url(http://ddragon.leagueoflegends.com/cdn/11.22.1/img/profileicon/${data.profileIconId}.png)`
-                    document.getElementById("infoPage").style.backgroundColor = "red"
+                    const mainResponse = await fetch(`https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${requested}?api_key=RGAPI-57c9f734-9e2c-49e9-ab7a-9e4a70ca9c0b`)
+                    const mainData = await mainResponse.json()
+                    this.summonerInfo[0].username = mainData.name
+                    document.getElementById("fillericon").style.backgroundImage = `url(http://ddragon.leagueoflegends.com/cdn/11.22.1/img/profileicon/${mainData.profileIconId}.png)`
+                    const rankResponse = await fetch(`https://na1.api.riotgames.com/lol/league/v4/entries/by-summoner/${mainData.id}?api_key=RGAPI-57c9f734-9e2c-49e9-ab7a-9e4a70ca9c0b`)
+                    const rankData = await rankResponse.json()
+                    const rankPlace = rankData[1].tier
+                    const rankSoloDivision = rankData[1].rank
+                    const rankSolo = `${rankPlace} ${rankSoloDivision}`
+                    this.summonerInfo[0].ranking = rankSolo
                     e.srcElement.value = ""
                 }
             } catch (error) {
@@ -93,10 +102,8 @@ export default {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: center;
     width: 100%;
     height: 25vh;
-    background-color: pink;
 }
 #fillericon{
     width: 20vh;
@@ -104,11 +111,28 @@ export default {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-    margin-right: 10px;
+    margin-right: 30px;
+    margin-left: 5rem;
 }
-#fillername{
-    width: 20vh;
+.infocontainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 30vw;
+    height: 20vh;
+}
+#fillername {
+    width: 30vw;
     height: 9vh;
-    font-size: 4rem;
+    font-size: 5rem;
+    padding-left: 1rem;
+    font-weight: normal;
+}
+#fillerrank{
+    width: 30vw;
+    height: 9vh;
+    font-size: 5rem;
+    padding-left: 1rem;
 }
 </style>
