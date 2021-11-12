@@ -43,12 +43,18 @@ export default {
                     const mainData = await mainResponse.json()
                     this.summonerInfo[0].username = mainData.name
                     document.getElementById("fillericon").style.backgroundImage = `url(http://ddragon.leagueoflegends.com/cdn/11.22.1/img/profileicon/${mainData.profileIconId}.png)`
+                    // Get rank data
                     const rankResponse = await fetch(`https://na1.api.riotgames.com/lol/league/v4/entries/by-summoner/${mainData.id}?api_key=RGAPI-57c9f734-9e2c-49e9-ab7a-9e4a70ca9c0b`)
                     const rankData = await rankResponse.json()
-                    const rankPlace = rankData[1].tier
-                    const rankSoloDivision = rankData[1].rank
-                    const rankSolo = `${rankPlace} ${rankSoloDivision}`
-                    this.summonerInfo[0].ranking = rankSolo
+                    console.log(rankData);
+                    if (rankData[1] != undefined){
+                        const rankPlace = rankData[1].tier
+                        const rankSoloDivision = rankData[1].rank
+                        const rankSolo = `${rankPlace} ${rankSoloDivision}`
+                        this.summonerInfo[0].ranking = rankSolo
+                    } else if (rankData[1] === undefined){
+                        this.summonerInfo[0].ranking = "Unranked"
+                    }
                     e.srcElement.value = ""
                 }
             } catch (error) {
@@ -119,11 +125,11 @@ export default {
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
-    width: 30vw;
+    width: 70vw;
     height: 20vh;
 }
 #fillername {
-    width: 30vw;
+    width: 70vw;
     height: 9vh;
     font-size: 5rem;
     padding-left: 1rem;
@@ -134,5 +140,6 @@ export default {
     height: 9vh;
     font-size: 5rem;
     padding-left: 1rem;
+    float: left;
 }
 </style>
