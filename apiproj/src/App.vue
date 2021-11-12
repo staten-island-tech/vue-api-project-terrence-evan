@@ -31,7 +31,9 @@ html, body, *{
   position: fixed;
 }
 .nav-image {
-  width: 10rem;
+  width: 8vw;
+  max-height: 10vh;
+
 }
 .nav-list {
   display: flex;

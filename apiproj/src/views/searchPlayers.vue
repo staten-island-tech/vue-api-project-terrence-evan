@@ -84,7 +84,7 @@ export default {
     height: 10vh;
     display: flex;
     position: relative;
-    margin-top: 10px;
+    margin-top: 12.5vh;
     margin-bottom: 10px;
 }
 #searchbar{

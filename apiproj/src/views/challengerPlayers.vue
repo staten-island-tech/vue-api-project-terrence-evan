@@ -1,11 +1,15 @@
 <template>
   <section id="challenger-display">
     <div class="challenger-container-header">
-      <div class="challenger-column">
-        <p class="section-text">Summoner</p>
+      <div class="challenger-column-small">
+        <p class="section-text">Rank</p>
       </div>
 
-      <div class="challenger-column" id="tier">
+      <div class="challenger-column-name" id="summoner">
+        <p class="section-text">Summoners</p>
+      </div>
+
+      <div class="challenger-column-tier">
         <p class="section-text">Tier</p>
       </div>
 
@@ -23,14 +27,19 @@
     </div>
     <div
       class="challenger-container"
-      v-for="(challenger, id) in challengers"
-      :key="id"
+      v-for="(challenger, index) in challengers"
+      :key="index"
     >
-      <div class="challenger-column">
+      <div class="challenger-column-small">
+        <p class="player-number" id="name">{{(index + 1)}}</p>
+      </div>
+
+      <div class="challenger-column-name">
+        <img class="player-icon" src="../assets/placeholder.jpg">
         <p class="player-text" id="name">{{ challenger.summonerName }}</p>
       </div>
 
-      <div class="challenger-column">
+      <div class="challenger-column-tier">
         <p class="player-text">{{ tier }}</p>
       </div>
 
@@ -65,10 +74,13 @@ export default {
     fetchData: async function () {
       try {
         const response = await fetch(
-          "https://na1.api.riotgames.com/lol/league/v4/challengerleagues/by-queue/RANKED_SOLO_5x5?api_key=RGAPI-33c0b8e9-6d1f-4924-8608-5bd652d4fad5"
+          "https://na1.api.riotgames.com/lol/league/v4/challengerleagues/by-queue/RANKED_SOLO_5x5?api_key=RGAPI-f7c81929-e1d7-413b-88bd-6a8d8aa81443"
         );
         const data = await response.json();
         this.challengers = data.entries;
+        this.challengers.sort(function(a, b) {
+          return (b.leaguePoints) - (a.leaguePoints);
+        })
       } catch (error) {
         console.log(error);
       }
@@ -78,6 +90,13 @@ export default {
 </script>
 
 <style>
+
+.player-icon {
+  width: 4vw;
+  border-radius: 1rem;
+  padding: 1rem;
+}
+
 .player-text {
   font-size: 2rem;
   padding: 1rem;
@@ -88,6 +107,7 @@ export default {
   font-size: 1.8rem;
   color: white;
 }
+
 
 #name {
   font-size: 2.5rem;
@@ -101,22 +121,24 @@ export default {
   background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.5)),
     url("../assets/background.jpg");
   background-position: right -10% bottom 45%;
+  padding-bottom: 5rem;
+  padding-top: 16rem;
 }
 
 .challenger-container-header {
-  width: 70vw;
+  width: 75vw;
   height: 6vh;
   display: flex;
   align-items: center;
   background-color: #292929;
   text-align: center;
-  margin-top: 16rem;
 }
 
 .challenger-container {
   display: flex;
-  width: 70vw;
+  width: 75vw;
   text-align: center;
+  align-items: center;
 }
 
 .challenger-container:nth-child(2n + 0) {
@@ -127,8 +149,14 @@ export default {
   background-color: #292929;
 }
 
-.challenger-column {
+.challenger-column-name {
   width: 30%;
+  display: flex;
+  align-items: center;
+}
+
+.challenger-column-tier {
+  width: 20%;
 }
 
 .challenger-column-small {
@@ -136,14 +164,8 @@ export default {
 }
 
 .challenger-column-points {
-  width: 20%;
+  width: 15%;
 }
 
-#wins {
-  width: 10%;
-}
 
-#losses {
-  width: 10%;
-}
 </style>
