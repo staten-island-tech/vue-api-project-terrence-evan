@@ -48,9 +48,18 @@ export default {
                     // Get rank data based on summoner ID
                     const rankResponse = await fetch(`https://na1.api.riotgames.com/lol/league/v4/entries/by-summoner/${mainData.id}?api_key=RGAPI-57c9f734-9e2c-49e9-ab7a-9e4a70ca9c0b`)
                     const rankData = await rankResponse.json()
-                    rankData.forEach(element =>{
-                        console.log(element);
-                    })
+                    if (rankData.length === 2){
+                        rankData.forEach((element, index) =>{
+                            if (element.queueType === "RANKED_SOLO_5x5"){
+                                const rankPlace = rankData[index].tier
+                                const rankSoloDivision = rankData[index].rank
+                                const rankSolo = `${rankPlace} ${rankSoloDivision}`
+                                this.summonerInfo[0].ranking = rankSolo
+                            } 
+                        })
+                    } else if (rankData.length === 1 && rankData[0].queueType != "RANKED_SOLO_5x5"){
+                        this.summonerInfo[0].ranking = "unranked omegalul"
+                    }
                     e.srcElement.value = ""
                 }
             } catch (error) {
