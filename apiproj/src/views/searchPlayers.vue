@@ -12,8 +12,15 @@
                 <div id="fillerlevel">Level {{info.level}}</div>
             </div>
         </div>
-        <div class="rankedinfo">
-
+        <div class="rankinfo">
+            <div class="ranksolo">
+                <img id="ranksoloimg">
+                <div id="fillerranksolo"></div>
+            </div>
+            <div class="rankflex">
+                <img id="rankfleximg">
+                <div id="fillerrankflex"></div>
+            </div>
         </div>
         <div class="champinfo">
 
@@ -56,16 +63,20 @@ export default {
                     // Get rank data based on summoner ID
                     const rankResponse = await fetch(`https://na1.api.riotgames.com/lol/league/v4/entries/by-summoner/${mainData.id}?api_key=RGAPI-f07b1a5d-1a9e-4ffb-87fe-5f19c858b137`)
                     const rankData = await rankResponse.json()
+                    const rankSoloImg = document.getElementById("ranksoloimg")
+                    console.log(rankSoloImg)
                     if (rankData.length === 2 && rankData[0].queueType === "RANKED_FLEX_SR" && rankData[1].queueType === "RANKED_SOLO_5x5"){
                         const rankPlace = rankData[1].tier
+                        const rankPlaceLower = rankPlace.charAt(0).toUpperCase() + rankPlace.slice(1).toLowerCase()
                         const rankSoloDivision = rankData[1].rank
                         if (rankPlace != "CHALLENGER"){
-                            const rankSolo = `${rankPlace} ${rankSoloDivision}`
+                            const rankSolo = `${rankPlaceLower} ${rankSoloDivision}`
                             this.summonerInfo[0].ranking = rankSolo
                         } else if (rankPlace === "CHALLENGER"){
-                            const rankSolo = `${rankPlace}`
+                            const rankSolo = `${rankPlaceLower}`
                             this.summonerInfo[0].ranking = rankSolo
                         }
+                        rankSoloImg.src = "../assets/Emblem_Gold.jpq"
                     } else if (rankData.length === 1 && rankData[0].queueType === "RANKED_SOLO_5x5"){
                         const rankPlace = rankData[0].tier
                         const rankSoloDivision = rankData[0].rank
@@ -134,38 +145,103 @@ export default {
     flex-direction: row;
     align-items: center;
     width: 100%;
-    height: 25vh;
+    height: 17.5vh;
+    padding: 5rem;
     border: 1px solid black;
 }
 #fillericon{
-    width: 20vh;
-    height: 20vh;
+    width: 15vh;
+    height: 15vh;
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
     margin-right: 30px;
-    margin-left: 5rem;
 }
 .infocontainer{
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
     width: 70vw;
-    height: 20vh;
+    height: 15vh;
 }
 #fillername {
     width: 70vw;
-    height: 9vh;
-    font-size: 5rem;
+    height: 7.5vh;
+    font-size: 3rem;
     padding-left: 1rem;
     font-weight: normal;
+    display: flex;
+    align-items: center;
 }
 #fillerlevel{
     display: flex;
     align-items: center;
     width: 30vw;
-    height: 9vh;
-    font-size: 3rem;
+    height: 7.5vh;
+    font-size: 2rem;
     padding-left: 1rem;
+}
+.rankinfo{
+    width: 30vw;
+    height: 58vh;
+    border: 1px solid black;
+    padding-left: 5rem;
+    padding-right: 5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.ranksolo{
+    width: 22.5vw;
+    height: 35vh;
+    background-color: pink;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+#ranksoloimg{
+    width: 12.5vw;
+    height: 20vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-color: red;
+}
+#fillerranksolo{
+    width: 10vw;
+    height: 5vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    background-color: green;
+}
+.rankflex{
+    width: 22.5vw;
+    height: 35vh;
+    background-color: blue;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+#rankfleximg{
+    width: 12.5vw;
+    height: 20vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-color: red;
+}
+#fillerrankflex{
+    width: 10vw;
+    height: 5vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    background-color: green;
 }
 </style>
