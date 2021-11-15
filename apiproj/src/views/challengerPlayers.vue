@@ -35,7 +35,7 @@
       </div>
 
       <div class="challenger-column-name">
-        <img class="player-icon" src="../assets/placeholder.jpg">
+        <img class="player-icon" :src="image">
         <p class="player-text" id="name">{{ challenger.summonerName }}</p>
       </div>
 
@@ -65,10 +65,13 @@ export default {
     return {
       challengers: [],
       tier: "Challenger",
+      image: "http://ddragon.leagueoflegends.com/cdn/11.22.1/img/profileicon/3160.png",
     };
   },
   created: function () {
     this.fetchData();
+    this.fetchIcon();
+    this.fetchName();
   },
   methods: {
     fetchData: async function () {
@@ -85,7 +88,24 @@ export default {
         console.log(error);
       }
     },
+
+    fetchName: function(challenger) {
+      console.log(challenger.summonerName)
+    },
+
+    fetchIcon: async function() {
+      try {
+        const reponse = await fetch(
+          `https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/3190?api_key=RGAPI-f07b1a5d-1a9e-4ffb-87fe-5f19c858b137`
+        )
+        console.log(reponse);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
   },
+
 };
 </script>
 
