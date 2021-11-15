@@ -12,6 +12,12 @@
                 <div id="fillerlevel">Level {{info.level}}</div>
             </div>
         </div>
+        <div class="rankedinfo">
+
+        </div>
+        <div class="champinfo">
+
+        </div>
     </div>
   </section>
 </template>
@@ -42,13 +48,13 @@ export default {
                     document.getElementById("infoPage").style.display = "flex"
                     // Finds user's main profile info to be used later
                     const requested = e.srcElement.value
-                    const mainResponse = await fetch(`https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${requested}?api_key=RGAPI-57c9f734-9e2c-49e9-ab7a-9e4a70ca9c0b`)
+                    const mainResponse = await fetch(`https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${requested}?api_key=RGAPI-f07b1a5d-1a9e-4ffb-87fe-5f19c858b137`)
                     const mainData = await mainResponse.json()
                     this.summonerInfo[0].level = mainData.summonerLevel
                     this.summonerInfo[0].username = mainData.name
                     document.getElementById("fillericon").style.backgroundImage = `url(http://ddragon.leagueoflegends.com/cdn/11.22.1/img/profileicon/${mainData.profileIconId}.png)`
                     // Get rank data based on summoner ID
-                    const rankResponse = await fetch(`https://na1.api.riotgames.com/lol/league/v4/entries/by-summoner/${mainData.id}?api_key=RGAPI-57c9f734-9e2c-49e9-ab7a-9e4a70ca9c0b`)
+                    const rankResponse = await fetch(`https://na1.api.riotgames.com/lol/league/v4/entries/by-summoner/${mainData.id}?api_key=RGAPI-f07b1a5d-1a9e-4ffb-87fe-5f19c858b137`)
                     const rankData = await rankResponse.json()
                     if (rankData.length === 2 && rankData[0].queueType === "RANKED_FLEX_SR" && rankData[1].queueType === "RANKED_SOLO_5x5"){
                         const rankPlace = rankData[1].tier
@@ -129,6 +135,7 @@ export default {
     align-items: center;
     width: 100%;
     height: 25vh;
+    border: 1px solid black;
 }
 #fillericon{
     width: 20vh;
