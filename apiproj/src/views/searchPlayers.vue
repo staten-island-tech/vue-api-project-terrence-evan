@@ -12,8 +12,15 @@
                 <div id="fillerlevel">Level {{info.level}}</div>
             </div>
         </div>
-        <div class="rankedinfo">
-
+        <div class="rankinfo">
+            <div class="ranksolo">
+                <div id="ranksoloimg"></div>
+                <div id="fillerranksolo">{{info.rankingSolo}}</div>
+            </div>
+            <div class="rankflex">
+                <div id="rankfleximg"></div>
+                <div id="fillerrankflex">{{info.rankingFlex}}</div>
+            </div>
         </div>
         <div class="champinfo">
 
@@ -31,7 +38,8 @@ export default {
                 {
                     username:"",
                     level:"",
-                    ranking: ""
+                    rankingSolo: "",
+                    rankingFlex:""
                 }
             ]
         }
@@ -48,43 +56,93 @@ export default {
                     document.getElementById("infoPage").style.display = "flex"
                     // Finds user's main profile info to be used later
                     const requested = e.srcElement.value
-                    const mainResponse = await fetch(`https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${requested}?api_key=RGAPI-f07b1a5d-1a9e-4ffb-87fe-5f19c858b137`)
+                    const mainResponse = await fetch(`https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${requested}?api_key=RGAPI-6a391073-a295-4421-8051-1be3dbbf8cc2`)
                     const mainData = await mainResponse.json()
                     this.summonerInfo[0].level = mainData.summonerLevel
                     this.summonerInfo[0].username = mainData.name
                     document.getElementById("fillericon").style.backgroundImage = `url(http://ddragon.leagueoflegends.com/cdn/11.22.1/img/profileicon/${mainData.profileIconId}.png)`
-                    // Get rank data based on summoner ID
-                    const rankResponse = await fetch(`https://na1.api.riotgames.com/lol/league/v4/entries/by-summoner/${mainData.id}?api_key=RGAPI-f07b1a5d-1a9e-4ffb-87fe-5f19c858b137`)
+                    // Get rank data based on summoner ID, Never again
+                    const rankResponse = await fetch(`https://na1.api.riotgames.com/lol/league/v4/entries/by-summoner/${mainData.id}?api_key=RGAPI-6a391073-a295-4421-8051-1be3dbbf8cc2`)
                     const rankData = await rankResponse.json()
+                    console.log(rankData);
                     if (rankData.length === 2 && rankData[0].queueType === "RANKED_FLEX_SR" && rankData[1].queueType === "RANKED_SOLO_5x5"){
-                        const rankPlace = rankData[1].tier
+                        const rankPlaceSolo = rankData[1].tier
+                        const rankPlaceLowerSolo = rankPlaceSolo.charAt(0).toUpperCase() + rankPlaceSolo.slice(1).toLowerCase()
                         const rankSoloDivision = rankData[1].rank
-                        if (rankPlace != "CHALLENGER"){
-                            const rankSolo = `${rankPlace} ${rankSoloDivision}`
-                            this.summonerInfo[0].ranking = rankSolo
-                        } else if (rankPlace === "CHALLENGER"){
-                            const rankSolo = `${rankPlace}`
-                            this.summonerInfo[0].ranking = rankSolo
+                        const rankPlaceFlex = rankData[0].tier
+                        const rankPlaceLowerFlex = rankPlaceFlex.charAt(0).toUpperCase() + rankPlaceFlex.slice(1).toLowerCase()
+                        const rankFlexDivision = rankData[0].rank
+                        if (rankPlaceSolo != "CHALLENGER"){
+                            const rankSolo = `${rankPlaceLowerSolo} ${rankSoloDivision}`
+                            this.summonerInfo[0].rankingSolo = rankSolo
+                            const rankFlex = `${rankPlaceLowerFlex} ${rankFlexDivision}`
+                            this.summonerInfo[0].rankingFlex = rankFlex
+                        } else if (rankPlaceSolo === "CHALLENGER"){
+                            const rankSolo = `${rankPlaceLowerSolo}`
+                            this.summonerInfo[0].rankingSolo = rankSolo
+                            const rankFlex = `${rankPlaceLowerFlex}`
+                            this.summonerInfo[0].rankingFlex = rankFlex
                         }
-                    } else if (rankData.length === 1 && rankData[0].queueType === "RANKED_SOLO_5x5"){
-                        const rankPlace = rankData[0].tier
+                        document.getElementById("ranksoloimg").style.backgroundImage = `url(${require(`../assets/${rankPlaceLowerSolo}.jpg`)})`
+                        document.getElementById("rankfleximg").style.backgroundImage = `url(${require(`../assets/${rankPlaceLowerFlex}.jpg`)})`
+                    } else if (rankData.length === 2 && rankData[1].queueType === "RANKED_FLEX_SR" && rankData[0].queueType === "RANKED_SOLO_5x5"){
+                        const rankPlaceSolo = rankData[0].tier
+                        const rankPlaceLowerSolo = rankPlaceSolo.charAt(0).toUpperCase() + rankPlaceSolo.slice(1).toLowerCase()
                         const rankSoloDivision = rankData[0].rank
-                        if (rankPlace != "CHALLENGER"){
-                            const rankSolo = `${rankPlace} ${rankSoloDivision}`
-                            this.summonerInfo[0].ranking = rankSolo
-                        } else if (rankPlace === "CHALLENGER"){
-                            const rankSolo = `${rankPlace}`
-                            this.summonerInfo[0].ranking = rankSolo
+                        const rankPlaceFlex = rankData[1].tier
+                        const rankPlaceLowerFlex = rankPlaceFlex.charAt(0).toUpperCase() + rankPlaceFlex.slice(1).toLowerCase()
+                        const rankFlexDivision = rankData[1].rank
+                        if (rankPlaceSolo != "CHALLENGER"){
+                            const rankSolo = `${rankPlaceLowerSolo} ${rankSoloDivision}`
+                            this.summonerInfo[0].rankingSolo = rankSolo
+                            const rankFlex = `${rankPlaceLowerFlex} ${rankFlexDivision}`
+                            this.summonerInfo[0].rankingFlex = rankFlex
+                        } else if (rankPlaceSolo === "CHALLENGER"){
+                            const rankSolo = `${rankPlaceLowerSolo}`
+                            this.summonerInfo[0].rankingSolo = rankSolo
+                             const rankFlex = `${rankPlaceLowerFlex}`
+                            this.summonerInfo[0].rankingFlex = rankFlex
+                        }                 
+                        document.getElementById("ranksoloimg").style.backgroundImage = `url(${require(`../assets/${rankPlaceLowerSolo}.jpg`)})`
+                        document.getElementById("rankfleximg").style.backgroundImage = `url(${require(`../assets/${rankPlaceLowerFlex}.jpg`)})`
+                    } else if (rankData.length === 1 && rankData[0].queueType === "RANKED_SOLO_5x5"){
+                        const rankPlaceSolo = rankData[0].tier
+                        const rankPlaceLowerSolo = rankPlaceSolo.charAt(0).toUpperCase() + rankPlaceSolo.slice(1).toLowerCase()
+                        const rankSoloDivision = rankData[0].rank
+                        if (rankPlaceSolo != "CHALLENGER"){
+                            const rankSolo = `${rankPlaceLowerSolo} ${rankSoloDivision}`
+                            this.summonerInfo[0].rankingSolo = rankSolo
+                        } else if (rankPlaceSolo === "CHALLENGER"){
+                            const rankSolo = `${rankPlaceLowerSolo}`
+                            this.summonerInfo[0].rankingSolo = rankSolo
                         }
+                        document.getElementById("ranksoloimg").style.backgroundImage = `url(${require(`../assets/${rankPlaceLowerSolo}.jpg`)})`
+                        document.getElementById("rankfleximg").style.backgroundImage = "none"
+                        this.summonerInfo[0].rankingFlex = "Unranked"
                     } else if (rankData.length === 1 && rankData[0].queueType === "RANKED_FLEX_SR"){
-                        this.summonerInfo[0].ranking = "Unranked Solo"
+                        const rankPlaceFlex = rankData[0].tier
+                        const rankPlaceLowerFlex = rankPlaceFlex.charAt(0).toUpperCase() + rankPlaceFlex.slice(1).toLowerCase()
+                        const rankFlexDivision = rankData[0].rank
+                        if (rankPlaceFlex != "CHALLENGER"){
+                            const rankFlex = `${rankPlaceLowerFlex} ${rankFlexDivision}`
+                            this.summonerInfo[0].rankingFlex = rankFlex
+                        } else if (rankPlaceFlex === "CHALLENGER"){
+                            const rankFlex = `${rankPlaceLowerFlex}`
+                            this.summonerInfo[0].rankingFlex = rankFlex
+                        }
+                        document.getElementById("ranksoloimg").style.backgroundImage = "none"
+                        document.getElementById("rankfleximg").style.backgroundImage = `url(${require(`../assets/${rankPlaceLowerFlex}.jpg`)})`
+                        this.summonerInfo[0].rankingSolo = "Unranked"
                     } else if (rankData.length === 0) {
-                        this.summonerInfo[0].ranking = "Unranked omegalul"
+                        this.summonerInfo[0].rankingSolo = "Unranked omegalul"
+                        document.getElementById("ranksoloimg").style.backgroundImage = "none"
+                        this.summonerInfo[0].rankingFlex = "Unranked omegalul"
+                        document.getElementById("rankfleximg").style.backgroundImage = "none"
                     }
                     e.srcElement.value = ""
                 }
             } catch (error) {
-                console.log(error);
+                window.alert("No such username exists")
             }
         }
     }
@@ -134,38 +192,97 @@ export default {
     flex-direction: row;
     align-items: center;
     width: 100%;
-    height: 25vh;
+    height: 17.5vh;
+    padding: 5rem;
     border: 1px solid black;
 }
 #fillericon{
-    width: 20vh;
-    height: 20vh;
+    width: 15vh;
+    height: 15vh;
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
     margin-right: 30px;
-    margin-left: 5rem;
 }
 .infocontainer{
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
     width: 70vw;
-    height: 20vh;
+    height: 15vh;
 }
 #fillername {
     width: 70vw;
-    height: 9vh;
-    font-size: 5rem;
+    height: 7.5vh;
+    font-size: 3rem;
     padding-left: 1rem;
     font-weight: normal;
+    display: flex;
+    align-items: center;
 }
 #fillerlevel{
     display: flex;
     align-items: center;
     width: 30vw;
-    height: 9vh;
-    font-size: 3rem;
+    height: 7.5vh;
+    font-size: 2rem;
     padding-left: 1rem;
+}
+.rankinfo{
+    width: 30vw;
+    height: 58vh;
+    border: 1px solid black;
+    padding-left: 5rem;
+    padding-right: 5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.ranksolo{
+    width: 22.5vw;
+    height: 25vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+#ranksoloimg{
+    width: 10vw;
+    height: 20vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+#fillerranksolo{
+    width: 20vw;
+    height: 5vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+}
+.rankflex{
+    width: 22.5vw;
+    height: 25vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+#rankfleximg{
+    width: 10vw;
+    height: 20vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+#fillerrankflex{
+    width: 20vw;
+    height: 5vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
 }
 </style>
