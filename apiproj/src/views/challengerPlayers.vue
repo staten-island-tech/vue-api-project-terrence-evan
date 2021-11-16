@@ -35,11 +35,11 @@
       </div>
 
       <div class="challenger-column-name">
-        <img class="player-icon" :src="image">
         <p class="player-text" id="name">{{ challenger.summonerName }}</p>
       </div>
 
       <div class="challenger-column-tier">
+        <img class="player-icon" :src="image">
         <p class="player-text">{{ tier }}</p>
       </div>
 
@@ -64,13 +64,13 @@ export default {
   data() {
     return {
       challengers: [],
+      summonerNames: [],
       tier: "Challenger",
-      image: "http://ddragon.leagueoflegends.com/cdn/11.22.1/img/profileicon/3160.png",
+      image: "https://static.u.gg/assets/lol/ranks/2d/challenger.svg",
     };
   },
   created: function () {
     this.fetchData();
-    this.fetchIcon();
     this.fetchName();
   },
   methods: {
@@ -84,27 +84,17 @@ export default {
         this.challengers.sort(function(a, b) {
           return (b.leaguePoints) - (a.leaguePoints);
         })
+        //this puts every summonername into an array
+        this.summonerNames = this.challengers.map(challenger => ( challenger.summonerName))
       } catch (error) {
         console.log(error);
       }
     },
 
-    fetchName: function(challenger) {
-      console.log(challenger.summonerName)
-    },
-
-    fetchIcon: async function() {
-      try {
-        const reponse = await fetch(
-          `https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/3190?api_key=RGAPI-f07b1a5d-1a9e-4ffb-87fe-5f19c858b137`
-        )
-        console.log(reponse);
-      } catch (error) {
-        console.log(error);
-      }
-    },
-
+    fetchName: async function() {
+    }
   },
+  
 
 };
 </script>
@@ -112,9 +102,7 @@ export default {
 <style>
 
 .player-icon {
-  width: 4vw;
-  border-radius: 1rem;
-  padding: 1rem;
+  width: 2vw;
 }
 
 .player-text {
@@ -177,6 +165,8 @@ export default {
 
 .challenger-column-tier {
   width: 20%;
+  display: flex;
+  align-items: center;
 }
 
 .challenger-column-small {
