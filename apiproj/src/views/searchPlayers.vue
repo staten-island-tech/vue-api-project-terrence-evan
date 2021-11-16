@@ -64,10 +64,10 @@ export default {
                     // Get rank data based on summoner ID, Never again
                     const rankResponse = await fetch(`https://na1.api.riotgames.com/lol/league/v4/entries/by-summoner/${mainData.id}?api_key=RGAPI-f07b1a5d-1a9e-4ffb-87fe-5f19c858b137`)
                     const rankData = await rankResponse.json()
+                    console.log(rankData);
                     if (rankData.length === 2 && rankData[0].queueType === "RANKED_FLEX_SR" && rankData[1].queueType === "RANKED_SOLO_5x5"){
                         const rankPlaceSolo = rankData[1].tier
                         const rankPlaceLowerSolo = rankPlaceSolo.charAt(0).toUpperCase() + rankPlaceSolo.slice(1).toLowerCase()
-                        console.log(rankPlaceLowerSolo);
                         const rankSoloDivision = rankData[1].rank
                         const rankPlaceFlex = rankData[0].tier
                         const rankPlaceLowerFlex = rankPlaceFlex.charAt(0).toUpperCase() + rankPlaceFlex.slice(1).toLowerCase()
@@ -117,6 +117,7 @@ export default {
                             this.summonerInfo[0].rankingSolo = rankSolo
                         }
                         document.getElementById("ranksoloimg").style.backgroundImage = `url(${require(`../assets/${rankPlaceLowerSolo}.jpg`)})`
+                        document.getElementById("rankfleximg").style.backgroundImage = "none"
                         this.summonerInfo[0].rankingFlex = "Unranked"
                     } else if (rankData.length === 1 && rankData[0].queueType === "RANKED_FLEX_SR"){
                         const rankPlaceFlex = rankData[0].tier
@@ -129,6 +130,7 @@ export default {
                             const rankFlex = `${rankPlaceLowerFlex}`
                             this.summonerInfo[0].rankingFlex = rankFlex
                         }
+                        document.getElementById("ranksoloimg").style.backgroundImage = "none"
                         document.getElementById("rankfleximg").style.backgroundImage = `url(${require(`../assets/${rankPlaceLowerFlex}.jpg`)})`
                         this.summonerInfo[0].rankingSolo = "Unranked"
                     } else if (rankData.length === 0) {
