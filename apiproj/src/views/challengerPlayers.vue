@@ -26,6 +26,7 @@
       </div>
 
       <div class="challenger-column-small">
+        <p class="section-text">Win Ratio</p>
       </div>
     </div>
     <div
@@ -34,7 +35,7 @@
       :key="index"
     >
       <div class="challenger-column-small">
-        <p class="player-number" id="name">{{(index + 1)}}</p>
+        <p class="player-number" id="name">{{ index + 1 }}</p>
       </div>
 
       <div class="challenger-column-name">
@@ -42,12 +43,12 @@
       </div>
 
       <div class="challenger-column-tier">
-        <img class="player-icon" :src="image">
+        <img class="player-icon" :src="image" />
         <p class="player-text">{{ tier }}</p>
       </div>
 
       <div class="challenger-column-points">
-        <p class="player-text">{{ challenger.leaguePoints }}</p>
+        <p class="player-text">{{ challenger.leaguePoints }} LP</p>
       </div>
 
       <div class="challenger-column-small">
@@ -59,7 +60,7 @@
       </div>
 
       <div class="challenger-column-small">
-        <div class="player-text"> {{ winrate(challenger) }}</div>
+        <div class="player-text">{{ Math.round((challenger.wins / (challenger.wins + challenger.losses)) * 100) }}%</div>
       </div>
     </div>
   </section>
@@ -78,7 +79,6 @@ export default {
   },
   created: function () {
     this.fetchData();
-    this.winrate();
   },
   methods: {
     fetchData: async function () {
@@ -88,27 +88,24 @@ export default {
         );
         const data = await response.json();
         this.challengers = data.entries;
-        this.challengers.sort(function(a, b) {
-          return (b.leaguePoints) - (a.leaguePoints);
-        })
+        this.challengers.sort(function (a, b) {
+          return b.leaguePoints - a.leaguePoints;
+        });
         //this puts every summonername into an array
-        this.summonerNames = this.challengers.map(challenger => ( challenger.summonerName))
+        this.summonerNames = this.challengers.map(
+          (challenger) => challenger.summonerName
+        );
       } catch (error) {
         console.log(error);
-      }    
-    },
-        winrate: {
-      winrate(challenger) {
-        return 
       }
     },
-}
-}
-
+  },
+  computed: {
+  }
+};
 </script>
 
 <style>
-
 .player-icon {
   width: 2vw;
 }
@@ -123,7 +120,6 @@ export default {
   font-size: 1.8rem;
   color: white;
 }
-
 
 #name {
   font-size: 2.5rem;
@@ -184,6 +180,4 @@ export default {
 .challenger-column-points {
   width: 15%;
 }
-
-
 </style>

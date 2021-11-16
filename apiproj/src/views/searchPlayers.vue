@@ -1,8 +1,9 @@
 <template>
   <section id="searchpage">
+    <img src="../assets/NEW LOGO.png" alt="" id="mainlogo">
     <div id="searchcontainer">
-        <input id="searchbar" type="text" placeholder="Search..." @keyup="run">
         <button class="button" type="submit"><i class="fas fa-search"></i></button>
+        <input id="searchbar" type="text" placeholder="Enter username..." @keyup="run">
     </div>
     <div id="infoPage" v-for="(info, id) in summonerInfo" :key="id">
         <div class="profilenav">
@@ -52,8 +53,10 @@ export default {
                     document.getElementById("searchcontainer").style.width = "75rem"
                     document.getElementById("searchcontainer").style.height = "4vh"
                     document.getElementById("searchbar").style.fontSize = "1.75rem"
-                    document.querySelector(".fas").style.fontSize = "2rem"
+                    document.querySelector(".fa-search").style.fontSize = "2rem"
                     document.getElementById("infoPage").style.display = "flex"
+                    document.getElementById("searchcontainer").style.marginTop = "12.5vh"
+                    document.getElementById("mainlogo").style.display = "none";
                     // Finds user's main profile info to be used later
                     const requested = e.srcElement.value
                     const mainResponse = await fetch(`https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${requested}?api_key=RGAPI-6a391073-a295-4421-8051-1be3dbbf8cc2`)
@@ -160,41 +163,58 @@ export default {
 
 <style>
 #searchpage{
-    height: 90vh;
+    height: 100vh;
     width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.3)),
+    url("../assets/main screen.jpg");
+    background-size: cover;
+    background-position: center;
 }
+
+#mainlogo{
+    width: 25vw;
+}
+
+#maintext{
+    font-size: 3rem;
+    color: white;
+}
+
 #searchcontainer{
-    width: 100rem;
-    height: 10vh;
+    width: 70vw;
+    height: 7vh;
     display: flex;
-    margin-top: 12.5vh;
-    margin-bottom: 10px;
+    margin-bottom: 2vh;
 }
 #searchbar{
-    width: 85%;
+    width: 90%;
     height: 100%;
     font-size: 2.5rem;
-    text-indent: 3rem;
-    border-radius: 5rem 0 0 5rem;
+    text-indent: 1rem;
+    border-radius: 0 0.8rem 0.8rem 0;
+    background-color: white;
+    border: none;
 }
 .button{
-    width: 15%;
+    width: 10%;
     height: 100%;
-    border-radius: 0 5rem 5rem 0;
+    border-radius: 0.8rem 0 0 0.8rem;
     background-color: white;
+    border: none;
 }
-.fas{
-    font-size: 4rem;
+.fa-search{
+    font-size: 3rem;
 }
 #infoPage{
     display: none;
     flex-direction: column;
     height: 90vh;
     width: 100%;
+    background-color: white;
 }
 .profilenav{
     display: flex;

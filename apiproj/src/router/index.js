@@ -12,7 +12,7 @@ const routes = [
     component: search,
   },
   {
-    path: "/challenger",
+    path: "/leaderboards",
     name: "challenger",
     component: challenger,
   },

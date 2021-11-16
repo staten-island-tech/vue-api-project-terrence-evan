@@ -2,11 +2,12 @@
   <div id="app">
     <nav id="nav">
       <div class="nav-logo">
-        <img class="nav-image" src="./assets/rito games.jpg">
+        <img class="nav-image" src="./assets/NEW LOGO.png">
       </div>
       <ul class="nav-list">
         <li><router-link class="nav-list-item" to="/">Home</router-link></li>
-        <li><router-link class="nav-list-item" to="/challenger">Leaderboard</router-link></li>
+        <li><router-link class="nav-list-item" to="/leaderboards">Leaderboard</router-link></li>
+        <li><div id="settings" class="nav-list-item"><i class="fas fa-user-cog"></i></div></li>
       </ul>
     </nav>
     <router-view/>
@@ -39,29 +40,48 @@ html, body, *{
   display: flex;
   align-items: center;
   list-style-type: none;
+  height: 10vh;
+  width: 100%;
 }
 
 .nav-list-item {
   padding: 0rem 2.5rem;
   text-decoration: none;
   color: #e3e3e3;
+}
+
+#nav li:last-of-type {
+  margin-left: auto;
+}
+
+.fa-user-cog {
+  font-size: 3rem;
+}
+
+#nav li {
+  height: 10vh;
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.nav-list-item:hover {
-  color: #EF5757;
-}
-.nav-list-item::after {
+
+#nav li::after {
   content: '';
-  height: 0.5rem;
+  height: 0.6rem;
   background-color: #B83333;
   width: 0%;
-  transition: all 0.3s;
+  transition: all 0.2s;
   display: block;
   position: absolute;
-  bottom: -1.8rem;
+  bottom: 0;
 }
-.nav-list-item:hover::after{
+#nav li:hover::after {
   width: 100%;
+}
+
+#nav li:hover .nav-list-item:not(#settings) {
+  color: #EF5757;
 }
 #nav a{
   font-size: 2.5rem;
