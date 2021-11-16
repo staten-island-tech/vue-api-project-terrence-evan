@@ -64,7 +64,6 @@ export default {
                     // Get rank data based on summoner ID, Never again
                     const rankResponse = await fetch(`https://na1.api.riotgames.com/lol/league/v4/entries/by-summoner/${mainData.id}?api_key=RGAPI-6a391073-a295-4421-8051-1be3dbbf8cc2`)
                     const rankData = await rankResponse.json()
-                    console.log(rankData);
                     if (rankData.length === 2 && rankData[0].queueType === "RANKED_FLEX_SR" && rankData[1].queueType === "RANKED_SOLO_5x5"){
                         const rankPlaceSolo = rankData[1].tier
                         const rankPlaceLowerSolo = rankPlaceSolo.charAt(0).toUpperCase() + rankPlaceSolo.slice(1).toLowerCase()
@@ -139,6 +138,16 @@ export default {
                         this.summonerInfo[0].rankingFlex = "Unranked omegalul"
                         document.getElementById("rankfleximg").style.backgroundImage = "none"
                     }
+                    // Gets champion mastery data
+                    const championMasteryResponse = await fetch(`https://na1.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/${mainData.id}?api_key=RGAPI-6a391073-a295-4421-8051-1be3dbbf8cc2`)
+                    const championMastery = await championMasteryResponse.json()
+                    championMastery.forEach(element => {
+                        console.log(element.championId)
+                    });
+                    const championDataResponse = await fetch("http://ddragon.leagueoflegends.com/cdn/11.22.1/data/en_US/champion.json")
+                    const championData = await championDataResponse.json()
+                    const test = championData.data
+                    console.log(test)
                     e.srcElement.value = ""
                 }
             } catch (error) {
