@@ -24,6 +24,9 @@
       <div class="challenger-column-small">
         <p class="section-text">Losses</p>
       </div>
+
+      <div class="challenger-column-small">
+      </div>
     </div>
     <div
       class="challenger-container"
@@ -54,6 +57,10 @@
       <div class="challenger-column-small">
         <p class="player-text">{{ challenger.losses }}</p>
       </div>
+
+      <div class="challenger-column-small">
+        <div class="player-text"> {{ winrate(challenger) }}</div>
+      </div>
     </div>
   </section>
 </template>
@@ -71,7 +78,7 @@ export default {
   },
   created: function () {
     this.fetchData();
-    this.fetchName();
+    this.winrate();
   },
   methods: {
     fetchData: async function () {
@@ -88,15 +95,16 @@ export default {
         this.summonerNames = this.challengers.map(challenger => ( challenger.summonerName))
       } catch (error) {
         console.log(error);
+      }    
+    },
+        winrate: {
+      winrate(challenger) {
+        return 
       }
     },
+}
+}
 
-    fetchName: async function() {
-    }
-  },
-  
-
-};
 </script>
 
 <style>
