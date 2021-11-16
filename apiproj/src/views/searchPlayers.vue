@@ -14,12 +14,12 @@
         </div>
         <div class="rankinfo">
             <div class="ranksolo">
-                <img id="ranksoloimg">
-                <div id="fillerranksolo"></div>
+                <div id="ranksoloimg"></div>
+                <div id="fillerranksolo">{{info.rankingSolo}}</div>
             </div>
             <div class="rankflex">
-                <img id="rankfleximg">
-                <div id="fillerrankflex"></div>
+                <div id="rankfleximg"></div>
+                <div id="fillerrankflex">{{info.rankingFlex}}</div>
             </div>
         </div>
         <div class="champinfo">
@@ -38,7 +38,8 @@ export default {
                 {
                     username:"",
                     level:"",
-                    ranking: ""
+                    rankingSolo: "",
+                    rankingFlex:""
                 }
             ]
         }
@@ -60,42 +61,84 @@ export default {
                     this.summonerInfo[0].level = mainData.summonerLevel
                     this.summonerInfo[0].username = mainData.name
                     document.getElementById("fillericon").style.backgroundImage = `url(http://ddragon.leagueoflegends.com/cdn/11.22.1/img/profileicon/${mainData.profileIconId}.png)`
-                    // Get rank data based on summoner ID
+                    // Get rank data based on summoner ID, Never again
                     const rankResponse = await fetch(`https://na1.api.riotgames.com/lol/league/v4/entries/by-summoner/${mainData.id}?api_key=RGAPI-f07b1a5d-1a9e-4ffb-87fe-5f19c858b137`)
                     const rankData = await rankResponse.json()
-                    const rankSoloImg = document.getElementById("ranksoloimg")
-                    console.log(rankSoloImg)
                     if (rankData.length === 2 && rankData[0].queueType === "RANKED_FLEX_SR" && rankData[1].queueType === "RANKED_SOLO_5x5"){
-                        const rankPlace = rankData[1].tier
-                        const rankPlaceLower = rankPlace.charAt(0).toUpperCase() + rankPlace.slice(1).toLowerCase()
+                        const rankPlaceSolo = rankData[1].tier
+                        const rankPlaceLowerSolo = rankPlaceSolo.charAt(0).toUpperCase() + rankPlaceSolo.slice(1).toLowerCase()
+                        console.log(rankPlaceLowerSolo);
                         const rankSoloDivision = rankData[1].rank
-                        if (rankPlace != "CHALLENGER"){
-                            const rankSolo = `${rankPlaceLower} ${rankSoloDivision}`
-                            this.summonerInfo[0].ranking = rankSolo
-                        } else if (rankPlace === "CHALLENGER"){
-                            const rankSolo = `${rankPlaceLower}`
-                            this.summonerInfo[0].ranking = rankSolo
+                        const rankPlaceFlex = rankData[0].tier
+                        const rankPlaceLowerFlex = rankPlaceFlex.charAt(0).toUpperCase() + rankPlaceFlex.slice(1).toLowerCase()
+                        const rankFlexDivision = rankData[0].rank
+                        if (rankPlaceSolo != "CHALLENGER"){
+                            const rankSolo = `${rankPlaceLowerSolo} ${rankSoloDivision}`
+                            this.summonerInfo[0].rankingSolo = rankSolo
+                            const rankFlex = `${rankPlaceLowerFlex} ${rankFlexDivision}`
+                            this.summonerInfo[0].rankingFlex = rankFlex
+                        } else if (rankPlaceSolo === "CHALLENGER"){
+                            const rankSolo = `${rankPlaceLowerSolo}`
+                            this.summonerInfo[0].rankingSolo = rankSolo
+                            const rankFlex = `${rankPlaceLowerFlex}`
+                            this.summonerInfo[0].rankingFlex = rankFlex
                         }
-                        rankSoloImg.src = "../assets/Emblem_Gold.jpq"
-                    } else if (rankData.length === 1 && rankData[0].queueType === "RANKED_SOLO_5x5"){
-                        const rankPlace = rankData[0].tier
+                        document.getElementById("ranksoloimg").style.backgroundImage = `url(${require(`../assets/${rankPlaceLowerSolo}.jpg`)})`
+                        document.getElementById("rankfleximg").style.backgroundImage = `url(${require(`../assets/${rankPlaceLowerFlex}.jpg`)})`
+                    } else if (rankData.length === 2 && rankData[1].queueType === "RANKED_FLEX_SR" && rankData[0].queueType === "RANKED_SOLO_5x5"){
+                        const rankPlaceSolo = rankData[0].tier
+                        const rankPlaceLowerSolo = rankPlaceSolo.charAt(0).toUpperCase() + rankPlaceSolo.slice(1).toLowerCase()
                         const rankSoloDivision = rankData[0].rank
-                        if (rankPlace != "CHALLENGER"){
-                            const rankSolo = `${rankPlace} ${rankSoloDivision}`
-                            this.summonerInfo[0].ranking = rankSolo
-                        } else if (rankPlace === "CHALLENGER"){
-                            const rankSolo = `${rankPlace}`
-                            this.summonerInfo[0].ranking = rankSolo
+                        const rankPlaceFlex = rankData[1].tier
+                        const rankPlaceLowerFlex = rankPlaceFlex.charAt(0).toUpperCase() + rankPlaceFlex.slice(1).toLowerCase()
+                        const rankFlexDivision = rankData[1].rank
+                        if (rankPlaceSolo != "CHALLENGER"){
+                            const rankSolo = `${rankPlaceLowerSolo} ${rankSoloDivision}`
+                            this.summonerInfo[0].rankingSolo = rankSolo
+                            const rankFlex = `${rankPlaceLowerFlex} ${rankFlexDivision}`
+                            this.summonerInfo[0].rankingFlex = rankFlex
+                        } else if (rankPlaceSolo === "CHALLENGER"){
+                            const rankSolo = `${rankPlaceLowerSolo}`
+                            this.summonerInfo[0].rankingSolo = rankSolo
+                             const rankFlex = `${rankPlaceLowerFlex}`
+                            this.summonerInfo[0].rankingFlex = rankFlex
+                        }                 
+                        document.getElementById("ranksoloimg").style.backgroundImage = `url(${require(`../assets/${rankPlaceLowerSolo}.jpg`)})`
+                        document.getElementById("rankfleximg").style.backgroundImage = `url(${require(`../assets/${rankPlaceLowerFlex}.jpg`)})`
+                    } else if (rankData.length === 1 && rankData[0].queueType === "RANKED_SOLO_5x5"){
+                        const rankPlaceSolo = rankData[0].tier
+                        const rankPlaceLowerSolo = rankPlaceSolo.charAt(0).toUpperCase() + rankPlaceSolo.slice(1).toLowerCase()
+                        const rankSoloDivision = rankData[0].rank
+                        if (rankPlaceSolo != "CHALLENGER"){
+                            const rankSolo = `${rankPlaceLowerSolo} ${rankSoloDivision}`
+                            this.summonerInfo[0].rankingSolo = rankSolo
+                        } else if (rankPlaceSolo === "CHALLENGER"){
+                            const rankSolo = `${rankPlaceLowerSolo}`
+                            this.summonerInfo[0].rankingSolo = rankSolo
                         }
+                        document.getElementById("ranksoloimg").style.backgroundImage = `url(${require(`../assets/${rankPlaceLowerSolo}.jpg`)})`
+                        this.summonerInfo[0].rankingFlex = "Unranked"
                     } else if (rankData.length === 1 && rankData[0].queueType === "RANKED_FLEX_SR"){
-                        this.summonerInfo[0].ranking = "Unranked Solo"
+                        const rankPlaceFlex = rankData[0].tier
+                        const rankPlaceLowerFlex = rankPlaceFlex.charAt(0).toUpperCase() + rankPlaceFlex.slice(1).toLowerCase()
+                        const rankFlexDivision = rankData[0].rank
+                        if (rankPlaceFlex != "CHALLENGER"){
+                            const rankFlex = `${rankPlaceLowerFlex} ${rankFlexDivision}`
+                            this.summonerInfo[0].rankingFlex = rankFlex
+                        } else if (rankPlaceFlex === "CHALLENGER"){
+                            const rankFlex = `${rankPlaceLowerFlex}`
+                            this.summonerInfo[0].rankingFlex = rankFlex
+                        }
+                        document.getElementById("rankfleximg").style.backgroundImage = `url(${require(`../assets/${rankPlaceLowerFlex}.jpg`)})`
+                        this.summonerInfo[0].rankingSolo = "Unranked"
                     } else if (rankData.length === 0) {
-                        this.summonerInfo[0].ranking = "Unranked omegalul"
+                        this.summonerInfo[0].rankingSolo = "Unranked omegalul"
+                        this.summonerInfo[0].rankingFlex = "Unranked omegalul"
                     }
                     e.srcElement.value = ""
                 }
             } catch (error) {
-                console.log(error);
+                window.alert("No such username exists")
             }
         }
     }
@@ -194,54 +237,48 @@ export default {
 }
 .ranksolo{
     width: 22.5vw;
-    height: 35vh;
-    background-color: pink;
+    height: 25vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
 }
 #ranksoloimg{
-    width: 12.5vw;
+    width: 10vw;
     height: 20vh;
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-    background-color: red;
 }
 #fillerranksolo{
-    width: 10vw;
+    width: 20vw;
     height: 5vh;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 2rem;
-    background-color: green;
 }
 .rankflex{
     width: 22.5vw;
-    height: 35vh;
-    background-color: blue;
+    height: 25vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
 }
 #rankfleximg{
-    width: 12.5vw;
+    width: 10vw;
     height: 20vh;
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-    background-color: red;
 }
 #fillerrankflex{
-    width: 10vw;
+    width: 20vw;
     height: 5vh;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 2rem;
-    background-color: green;
 }
 </style>
