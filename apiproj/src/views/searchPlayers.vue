@@ -56,13 +56,13 @@ export default {
                     document.getElementById("infoPage").style.display = "flex"
                     // Finds user's main profile info to be used later
                     const requested = e.srcElement.value
-                    const mainResponse = await fetch(`https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${requested}?api_key=RGAPI-f07b1a5d-1a9e-4ffb-87fe-5f19c858b137`)
+                    const mainResponse = await fetch(`https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${requested}?api_key=RGAPI-6a391073-a295-4421-8051-1be3dbbf8cc2`)
                     const mainData = await mainResponse.json()
                     this.summonerInfo[0].level = mainData.summonerLevel
                     this.summonerInfo[0].username = mainData.name
                     document.getElementById("fillericon").style.backgroundImage = `url(http://ddragon.leagueoflegends.com/cdn/11.22.1/img/profileicon/${mainData.profileIconId}.png)`
                     // Get rank data based on summoner ID, Never again
-                    const rankResponse = await fetch(`https://na1.api.riotgames.com/lol/league/v4/entries/by-summoner/${mainData.id}?api_key=RGAPI-f07b1a5d-1a9e-4ffb-87fe-5f19c858b137`)
+                    const rankResponse = await fetch(`https://na1.api.riotgames.com/lol/league/v4/entries/by-summoner/${mainData.id}?api_key=RGAPI-6a391073-a295-4421-8051-1be3dbbf8cc2`)
                     const rankData = await rankResponse.json()
                     console.log(rankData);
                     if (rankData.length === 2 && rankData[0].queueType === "RANKED_FLEX_SR" && rankData[1].queueType === "RANKED_SOLO_5x5"){
@@ -135,7 +135,9 @@ export default {
                         this.summonerInfo[0].rankingSolo = "Unranked"
                     } else if (rankData.length === 0) {
                         this.summonerInfo[0].rankingSolo = "Unranked omegalul"
+                        document.getElementById("ranksoloimg").style.backgroundImage = "none"
                         this.summonerInfo[0].rankingFlex = "Unranked omegalul"
+                        document.getElementById("rankfleximg").style.backgroundImage = "none"
                     }
                     e.srcElement.value = ""
                 }
