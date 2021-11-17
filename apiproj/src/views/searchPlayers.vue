@@ -3,7 +3,7 @@
     <img src="../assets/NEW LOGO.png" alt="" id="mainlogo">
     <div id="searchcontainer">
         <button class="button" type="submit"><i class="fas fa-search"></i></button>
-        <input id="searchbar" type="text" placeholder="Enter username..." @keyup="run">
+        <input id="searchbar" type="text" placeholder="Enter username..." @keyup="website">
     </div>
     <div id="infoPage" v-for="(info, id) in summonerInfo" :key="id">
         <div class="profilenav">
@@ -40,13 +40,17 @@ export default {
                     username:"",
                     level:"",
                     rankingSolo: "",
-                    rankingFlex:""
+                    rankingFlex:"",
+                    key: []
                 }
             ]
         }
     },
+    created: function(){
+        this.getChampionInfo()
+    },
     methods: {
-        run: async function(e){
+        website: async function(e){
             try {
                 if(e.key === "Enter"){
                     // Adjusts some HTML
@@ -144,17 +148,29 @@ export default {
                     // Gets champion mastery data
                     const championMasteryResponse = await fetch(`https://na1.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/${mainData.id}?api_key=RGAPI-6a391073-a295-4421-8051-1be3dbbf8cc2`)
                     const championMastery = await championMasteryResponse.json()
-                    championMastery.forEach(element => {
-                        console.log(element.championId)
+                    championMastery.forEach(e => {
+                        const championId = e.championId
+                        const championData = this.summonerInfo[0].key.filter(function(e){
+                            return e.ID === championId
+                        })
+                        console.log(championData);
                     });
-                    const championDataResponse = await fetch("http://ddragon.leagueoflegends.com/cdn/11.22.1/data/en_US/champion.json")
-                    const championData = await championDataResponse.json()
-                    const test = championData.data
-                    console.log(test)
                     e.srcElement.value = ""
                 }
             } catch (error) {
                 window.alert("No such username exists")
+            }
+        },
+        getChampionInfo: async function(){
+            try {
+                const championDataResponse = await fetch("http://ddragon.leagueoflegends.com/cdn/11.22.1/data/en_US/champion.json")
+                const championData = await championDataResponse.json()  
+                Object.keys(championData.data).forEach((champion) => {
+                        const test = championData.data[champion]
+                        this.summonerInfo[0].key.push({ ID: test.key, Champion: test.name})
+                })
+            } catch (error) {
+                console.log(error);
             }
         }
     }
