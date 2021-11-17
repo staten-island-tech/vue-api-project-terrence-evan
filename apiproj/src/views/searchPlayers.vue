@@ -41,9 +41,9 @@ export default {
                     level:"",
                     rankingSolo: "",
                     rankingFlex:"",
-                    key: []
                 }
-            ]
+            ],
+            reference: []
         }
     },
     created: function(){
@@ -148,13 +148,21 @@ export default {
                     // Gets champion mastery data
                     const championMasteryResponse = await fetch(`https://na1.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/${mainData.id}?api_key=RGAPI-6a391073-a295-4421-8051-1be3dbbf8cc2`)
                     const championMastery = await championMasteryResponse.json()
+                    let userKeys = []
                     championMastery.forEach(e => {
                         const championId = e.championId
-                        const championData = this.summonerInfo[0].key.filter(function(e){
-                            return e.ID === championId
-                        })
-                        console.log(championData);
+                        userKeys.push(championId)
                     });
+                    console.log()
+                    userKeys.forEach((e) => {
+                        let i = 0
+                        const hi = JSON.parse(JSON.stringify(this.reference))
+                        if (e === hi[i].key){
+                            console.log(JSON.stringify(this.reference)[i].champion)
+                        } else if (e !== hi[i].key) {
+                            i++
+                        }
+                    })
                     e.srcElement.value = ""
                 }
             } catch (error) {
@@ -167,7 +175,7 @@ export default {
                 const championData = await championDataResponse.json()  
                 Object.keys(championData.data).forEach((champion) => {
                         const test = championData.data[champion]
-                        this.summonerInfo[0].key.push({ ID: test.key, Champion: test.name})
+                        this.reference.push({ id: test.key, champion: test.name})
                 })
             } catch (error) {
                 console.log(error);
