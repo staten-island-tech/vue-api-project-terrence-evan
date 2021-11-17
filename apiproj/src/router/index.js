@@ -1,20 +1,33 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import challenger from "../views/challengerPlayers.vue";
+import challengerNA from "../views/challengerPlayersNA.vue";
 import search from "../views/searchPlayers.vue";
+import challengerEUW from "../views/challengerPlayersEUW.vue";
+import challengerOCE from "../views/challengerPlayersOCE.vue";
+import challengerKR from "../views/challengerPlayersKR.vue";
 
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: "/",
-    name: "Home",
     component: search,
   },
   {
-    path: "/leaderboards",
-    name: "challenger",
-    component: challenger,
+    path: "/leaderboard/NA",
+    component: challengerNA,
+  },
+  {
+    path: "/leaderboard/EUW",
+    component: challengerEUW,
+  },
+  {
+    path: "/leaderboard/OCE",
+    component: challengerOCE,
+  },
+  {
+    path: "/leaderboard/KR",
+    component: challengerKR,
   },
 ];
 

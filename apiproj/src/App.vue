@@ -6,13 +6,36 @@
       </div>
       <ul class="nav-list">
         <li><router-link class="nav-list-item" to="/">Home</router-link></li>
-        <li><router-link class="nav-list-item" to="/leaderboards">Leaderboard</router-link></li>
+        <li id="leaderboard"><a class="nav-list-item" @click="toggle">Leaderboard</a>
+          <div v-if="active" class="dropdown">
+            <router-link to="/leaderboard/NA">North America</router-link>
+            <router-link to="/leaderboard/EUW">Europe West</router-link>
+            <router-link to="/leaderboard/KR">Korea</router-link>
+            <router-link to="/leaderboard/OCE">Oceania</router-link>
+          </div>
+        </li>
         <li><div id="settings" class="nav-list-item"><i class="fas fa-user-cog"></i></div></li>
       </ul>
     </nav>
     <router-view/>
   </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      active: false,
+    }
+  },
+methods: {
+  toggle() {
+    this.active = !this.active
+  },
+}
+}
+
+</script>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap');
@@ -48,6 +71,37 @@ html, body, *{
   padding: 0rem 2.5rem;
   text-decoration: none;
   color: #e3e3e3;
+  font-size: 2.5rem;
+  cursor: pointer;
+}
+
+#leaderboard {
+  float: left;
+}
+
+.dropdown {
+  position: absolute;
+  top: 0;
+  background-color: #1f1f1f;
+  width: 100%;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  margin-top: 10vh;
+}
+
+.dropdown a {
+  cursor: pointer;
+  padding: 16px;
+  font-size: 16px;
+  color: white;
+  padding: 12px 16px;
+  text-decoration: none;
+}
+
+.dropdown a:hover {
+  color: #B83333;
 }
 
 #nav li:last-of-type {
@@ -82,9 +136,5 @@ html, body, *{
 
 #nav li:hover .nav-list-item:not(#settings) {
   color: #EF5757;
-}
-#nav a{
-  font-size: 2.5rem;
-
 }
 </style>

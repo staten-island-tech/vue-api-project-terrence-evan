@@ -59,13 +59,13 @@ export default {
                     document.getElementById("mainlogo").style.display = "none";
                     // Finds user's main profile info to be used later
                     const requested = e.srcElement.value
-                    const mainResponse = await fetch(`https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${requested}?api_key=RGAPI-6a391073-a295-4421-8051-1be3dbbf8cc2`)
+                    const mainResponse = await fetch(`https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${requested}?api_key=RGAPI-8bbf5479-1c26-46c7-b2d8-73a6256d0b50`)
                     const mainData = await mainResponse.json()
                     this.summonerInfo[0].level = mainData.summonerLevel
                     this.summonerInfo[0].username = mainData.name
                     document.getElementById("fillericon").style.backgroundImage = `url(http://ddragon.leagueoflegends.com/cdn/11.22.1/img/profileicon/${mainData.profileIconId}.png)`
                     // Get rank data based on summoner ID, Never again
-                    const rankResponse = await fetch(`https://na1.api.riotgames.com/lol/league/v4/entries/by-summoner/${mainData.id}?api_key=RGAPI-6a391073-a295-4421-8051-1be3dbbf8cc2`)
+                    const rankResponse = await fetch(`https://na1.api.riotgames.com/lol/league/v4/entries/by-summoner/${mainData.id}?api_key=RGAPI-8bbf5479-1c26-46c7-b2d8-73a6256d0b50`)
                     const rankData = await rankResponse.json()
                     if (rankData.length === 2 && rankData[0].queueType === "RANKED_FLEX_SR" && rankData[1].queueType === "RANKED_SOLO_5x5"){
                         const rankPlaceSolo = rankData[1].tier
@@ -142,7 +142,7 @@ export default {
                         document.getElementById("rankfleximg").style.backgroundImage = "none"
                     }
                     // Gets champion mastery data
-                    const championMasteryResponse = await fetch(`https://na1.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/${mainData.id}?api_key=RGAPI-6a391073-a295-4421-8051-1be3dbbf8cc2`)
+                    const championMasteryResponse = await fetch(`https://na1.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/${mainData.id}?api_key=RGAPI-8bbf5479-1c26-46c7-b2d8-73a6256d0b50`)
                     const championMastery = await championMasteryResponse.json()
                     championMastery.forEach(element => {
                         console.log(element.championId)
