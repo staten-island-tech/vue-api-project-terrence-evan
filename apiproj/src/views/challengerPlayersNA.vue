@@ -42,9 +42,9 @@ export default {
       challengers: [],
     };
   },
-    created: function () {
+  created: function () {
     this.fetchData();
-    },
+  },
   methods: {
         fetchData: async function () {
       try {

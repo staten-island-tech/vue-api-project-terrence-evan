@@ -13,18 +13,20 @@
                 <div id="fillerlevel">Level {{info.level}}</div>
             </div>
         </div>
-        <div class="rankinfo">
-            <div class="ranksolo">
-                <div id="ranksoloimg"></div>
-                <div id="fillerranksolo">{{info.rankingSolo}}</div>
+        <div class="stuffcontainer">
+            <div class="rankinfo">
+                <div class="ranksolo">
+                    <div id="ranksoloimg"></div>
+                    <div id="fillerranksolo">{{info.rankingSolo}}</div>
+                </div>
+                <div class="rankflex">
+                    <div id="rankfleximg"></div>
+                    <div id="fillerrankflex">{{info.rankingFlex}}</div>
+                </div>
+                </div>
+            <div class="champinfo">
+                <div></div>
             </div>
-            <div class="rankflex">
-                <div id="rankfleximg"></div>
-                <div id="fillerrankflex">{{info.rankingFlex}}</div>
-            </div>
-        </div>
-        <div class="champinfo">
-
         </div>
     </div>
   </section>
@@ -41,6 +43,7 @@ export default {
                     level:"",
                     rankingSolo: "",
                     rankingFlex:"",
+                    top: []
                 }
             ],
             reference: []
@@ -153,16 +156,19 @@ export default {
                         const championId = e.championId
                         userKeys.push(championId)
                     });
-                    console.log()
-                    userKeys.forEach((e) => {
-                        let i = 0
-                        const hi = JSON.parse(JSON.stringify(this.reference))
-                        if (e === hi[i].key){
-                            console.log(JSON.stringify(this.reference)[i].champion)
-                        } else if (e !== hi[i].key) {
-                            i++
-                        }
+                    let storage = []
+                    let storageTop = []
+                    userKeys.forEach((key, index, array) => {
+                        JSON.parse(JSON.stringify(this.reference)).forEach(championObj => {
+                            if (championObj.id === `${key}`) {
+                                storage.push(championObj.champion)
+                            }         
+                        })
+                        if (index === array.length - 1) {
+                            storageTop.push(...storage.slice(0,5))
+                        } 
                     })
+                    this.summonerInfo[0].top = storageTop
                     e.srcElement.value = ""
                 }
             } catch (error) {
@@ -281,6 +287,13 @@ export default {
     font-size: 2rem;
     padding-left: 1rem;
 }
+.stuffcontainer{
+    width: 100vw;
+    height: 58vh;
+    display: flex;
+    flex-direction: row;
+
+}
 .rankinfo{
     width: 30vw;
     height: 58vh;
@@ -337,5 +350,12 @@ export default {
     justify-content: center;
     align-items: center;
     font-size: 2rem;
+}
+.champinfo{
+    width: 70vw;
+    height: 58vh;
+    border: 1px solid black;
+    padding-left: 5rem;
+    padding-right: 5rem;
 }
 </style>
