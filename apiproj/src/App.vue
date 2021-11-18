@@ -8,10 +8,10 @@
         <li><router-link class="nav-list-item" to="/">Home</router-link></li>
         <li id="leaderboard"><a class="nav-list-item" @click="toggle">Leaderboard</a>
           <div v-if="active" class="dropdown">
-            <router-link to="/leaderboard/NA">North America</router-link>
-            <router-link to="/leaderboard/EUW">Europe West</router-link>
-            <router-link to="/leaderboard/KR">Korea</router-link>
-            <router-link to="/leaderboard/OCE">Oceania</router-link>
+            <router-link to="/leaderboard/NA" @click.native="close">North America</router-link>
+            <router-link to="/leaderboard/EUW" @click.native="close">Europe West</router-link>
+            <router-link to="/leaderboard/KR" @click.native="close">Korea</router-link>
+            <router-link to="/leaderboard/OCE" @click.native="close">Oceania</router-link>
           </div>
         </li>
         <li><div id="settings" class="nav-list-item"><i class="fas fa-user-cog"></i></div></li>
@@ -32,6 +32,9 @@ methods: {
   toggle() {
     this.active = !this.active
   },
+  close() {
+    this.active = false
+  }
 }
 }
 
@@ -125,7 +128,6 @@ html, body, *{
   height: 0.6rem;
   background-color: #B83333;
   width: 0%;
-  transition: all 0.2s;
   display: block;
   position: absolute;
   bottom: 0;
