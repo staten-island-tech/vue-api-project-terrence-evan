@@ -1,7 +1,7 @@
 <template>
   <section id="challenger-display">
     <div class="challenger-container-header">
-      <div class="challenger-column-small">
+      <div class="challenger-column-first">
         <p class="section-text">Rank</p>
       </div>
 

@@ -5,7 +5,7 @@
         v-for="(challenger, index) in challengers"
         :key="index"
       >
-        <div class="challenger-column-small">
+        <div class="challenger-column-first">
           <p class="player-number" id="name">{{ index + 1 }}</p>
         </div>
 
@@ -92,6 +92,10 @@ export default {
   width: 20%;
   display: flex;
   align-items: center;
+}
+
+.challenger-column-first {
+  width: 10%;
 }
 
 .challenger-column-small {
