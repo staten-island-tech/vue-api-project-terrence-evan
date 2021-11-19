@@ -23,9 +23,33 @@
                     <div id="rankfleximg"></div>
                     <div id="fillerrankflex">{{info.rankingFlex}}</div>
                 </div>
+            </div>
+            <div class="champinfo" v-for="(info, id) in summonerInfo" :key="id">
+                <div class="mastery fourth">
+                    <h1 class="label">Fourth</h1>
+                    <img class="championimg" src="" id="fourth">
+                    <h2 class="championname">{{info.top[3]}}</h2>
                 </div>
-            <div class="champinfo">
-                <div></div>
+                <div class="mastery second">
+                    <h1 class="label">Second</h1>
+                    <img class="championimg" src="" id="second">
+                    <h2 class="championname">{{info.top[1]}}</h2>
+                </div>
+                <div class="mastery first">
+                    <h1 class="label">First</h1>
+                    <img class="championimg" src="" id="first">
+                    <h2 class="championname">{{info.top[0]}}</h2>
+                </div>
+                <div class="mastery third">
+                    <h1 class="label">Third</h1>
+                    <img class="championimg" src="" id="third">
+                    <h2 class="championname">{{info.top[2]}}</h2>
+                </div>
+                <div class="mastery fifth">
+                    <h1 class="label">Fifth</h1>
+                    <img class="championimg" src="" id="fifth">
+                    <h2 class="championname">{{info.top[4]}}</h2>
+                </div>
             </div>
         </div>
     </div>
@@ -169,6 +193,11 @@ export default {
                         } 
                     })
                     this.summonerInfo[0].top = storageTop
+                    document.getElementById("first").src = `http://ddragon.leagueoflegends.com/cdn/11.23.1/img/champion/${storageTop[0]}.png`
+                    document.getElementById("second").src = `http://ddragon.leagueoflegends.com/cdn/11.23.1/img/champion/${storageTop[1]}.png`
+                    document.getElementById("third").src = `http://ddragon.leagueoflegends.com/cdn/11.23.1/img/champion/${storageTop[2]}.png`
+                    document.getElementById("fourth").src = `http://ddragon.leagueoflegends.com/cdn/11.23.1/img/champion/${storageTop[3]}.png`
+                    document.getElementById("fifth").src = `http://ddragon.leagueoflegends.com/cdn/11.23.1/img/champion/${storageTop[4]}.png`
                     e.srcElement.value = ""
                 }
             } catch (error) {
@@ -179,6 +208,7 @@ export default {
             try {
                 const championDataResponse = await fetch("http://ddragon.leagueoflegends.com/cdn/11.22.1/data/en_US/champion.json")
                 const championData = await championDataResponse.json()  
+                console.log(championData)
                 Object.keys(championData.data).forEach((champion) => {
                         const test = championData.data[champion]
                         this.reference.push({ id: test.key, champion: test.name})
@@ -357,5 +387,58 @@ export default {
     border: 1px solid black;
     padding-left: 5rem;
     padding-right: 5rem;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.mastery{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.championname{
+    font-size: 2rem;
+}
+.championimg{
+    width: 7vw;
+    height: 12vh;
+    border-radius: 50%;
+}
+.first{
+    width: 12vw;
+    height: 35vh;
+    background-color: pink;
+    position: relative;
+    top: -6vh;
+}
+.second{
+    width: 12vw;
+    height: 35vh;
+    background-color: pink;
+    position: relative;
+    top: -3vh;
+}
+.third{
+    width: 12vw;
+    height: 35vh;
+    background-color: pink;
+    position: relative;
+    top: -3vh;
+}
+.fourth{
+    width: 12vw;
+    height: 35vh;
+    background-color: pink;
+    position: relative;
+}
+.fifth{
+    width: 12vw;
+    height: 35vh;
+    background-color: pink;
+    position: relative;
+}
+.label{
+    font-size: 2rem;
 }
 </style>
