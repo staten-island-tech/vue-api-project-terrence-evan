@@ -81,22 +81,22 @@ export default {
             try {
                 if(e.key === "Enter"){
                     // Adjusts some HTML
-                    document.getElementById("searchcontainer").style.width = "75rem"
-                    document.getElementById("searchcontainer").style.height = "4vh"
+                    document.getElementById("searchcontainer").style.width = "60vw"
+                    document.getElementById("searchcontainer").style.height = "5vh"
                     document.getElementById("searchbar").style.fontSize = "1.75rem"
                     document.querySelector(".fa-search").style.fontSize = "2rem"
                     document.getElementById("infoPage").style.display = "flex"
-                    document.getElementById("searchcontainer").style.marginTop = "12.5vh"
+                    document.getElementById("searchcontainer").style.marginTop = "20vh"
                     document.getElementById("mainlogo").style.display = "none";
                     // Finds user's main profile info to be used later
                     const requested = e.srcElement.value
-                    const mainResponse = await fetch(`https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${requested}?api_key=RGAPI-ae0de522-fbbf-40ed-afaf-77679ad1c5fe`)
+                    const mainResponse = await fetch(`https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${requested}?api_key=RGAPI-d295b5ba-73ab-4ae4-85ef-97261fa05294`)
                     const mainData = await mainResponse.json()
                     this.summonerInfo[0].level = mainData.summonerLevel
                     this.summonerInfo[0].username = mainData.name
                     document.getElementById("fillericon").style.backgroundImage = `url(http://ddragon.leagueoflegends.com/cdn/11.22.1/img/profileicon/${mainData.profileIconId}.png)`
                     // Get rank data based on summoner ID, Never again
-                    const rankResponse = await fetch(`https://na1.api.riotgames.com/lol/league/v4/entries/by-summoner/${mainData.id}?api_key=RGAPI-ae0de522-fbbf-40ed-afaf-77679ad1c5fe`)
+                    const rankResponse = await fetch(`https://na1.api.riotgames.com/lol/league/v4/entries/by-summoner/${mainData.id}?api_key=RGAPI-d295b5ba-73ab-4ae4-85ef-97261fa05294`)
                     const rankData = await rankResponse.json()
                     if (rankData.length === 2 && rankData[0].queueType === "RANKED_FLEX_SR" && rankData[1].queueType === "RANKED_SOLO_5x5"){
                         const rankPlaceSolo = rankData[1].tier
@@ -173,7 +173,7 @@ export default {
                         document.getElementById("rankfleximg").style.backgroundImage = "none"
                     }
                     // Gets champion mastery data
-                    const championMasteryResponse = await fetch(`https://na1.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/${mainData.id}?api_key=RGAPI-ae0de522-fbbf-40ed-afaf-77679ad1c5fe`)
+                    const championMasteryResponse = await fetch(`https://na1.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/${mainData.id}?api_key=RGAPI-d295b5ba-73ab-4ae4-85ef-97261fa05294`)
                     const championMastery = await championMasteryResponse.json()
                     let userKeys = []
                     championMastery.forEach(e => {
@@ -297,12 +297,10 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    width: 70vw;
+    width: 30vw;
     height: 15vh;
 }
 #fillername {
-    width: 70vw;
-    height: 7.5vh;
     font-size: 3rem;
     padding-left: 1rem;
     font-weight: normal;
@@ -336,12 +334,9 @@ export default {
     justify-content: space-evenly;
 }
 .ranksolo{
-    width: 22.5vw;
-    height: 25vh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-evenly;
 }
 #ranksoloimg{
     width: 10vw;
@@ -351,31 +346,23 @@ export default {
     background-position: center;
 }
 #fillerranksolo{
-    width: 20vw;
-    height: 5vh;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 2rem;
 }
 .rankflex{
-    width: 22.5vw;
-    height: 25vh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-evenly;
 }
 #rankfleximg{
     width: 10vw;
     height: 20vh;
-    background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
 }
 #fillerrankflex{
-    width: 20vw;
-    height: 5vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -392,6 +379,7 @@ export default {
     align-items: center;
 }
 .mastery{
+    margin-top: 5rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -401,8 +389,7 @@ export default {
     font-size: 2rem;
 }
 .championimg{
-    width: 7vw;
-    height: 12vh;
+    width: 6vw;
     border-radius: 50%;
 }
 .first{
@@ -443,6 +430,38 @@ export default {
 }
 
 
+@media only screen and (max-width: 600px) {
+.stuffcontainer {
+    flex-direction: column;
+    align-items: center;
+}
+.rankinfo {
+    width: 90vw;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+.champinfo {
+    width: 90vw;
+    padding: 10rem;
+}
+.championimg{
+    width: 10vw;
+}
 
+#ranksoloimg {
+    width: 20vw;
+    height: 10vh;
+    margin: 1rem;
+}
+
+#rankfleximg {
+    width: 20vw;
+    height: 10vh;
+    margin: 1rem;
+}
+
+}
 
 </style>

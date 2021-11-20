@@ -130,6 +130,10 @@ export default {
     font-size: 1.8rem
   }
 
+  .challenger-column-small {
+    display: none;
+  }
+
   .challenger-column-name {
     width: 40%;
   }
@@ -148,6 +152,10 @@ export default {
   .challenger-column-name {
     width: 40%;
   }
+  
+  .challenger-column-small {
+    display: none;
+  }
 
   .challenger-column-tier {
     width: 30%;
@@ -159,8 +167,16 @@ export default {
 
 @media only screen and (min-width: 600px) {
   
+  #name {
+    font-size: 2rem;
+  }
+
   .challenger-column-name {
     width: 30%;
+  }
+
+  .challenger-column-small {
+    display: flex;
   }
 
   .challenger-column-tier {
