@@ -1,7 +1,7 @@
 <template>
   <section id="challenger-display">
     <div class="challenger-container-header">
-      <div class="challenger-column-small">
+      <div class="challenger-column-first">
         <p class="section-text">Rank</p>
       </div>
 
@@ -81,7 +81,7 @@ export default {
 }
 
 .challenger-container-header {
-  width: 75vw;
+  width: 80vw;
   height: 6vh;
   display: flex;
   align-items: center;

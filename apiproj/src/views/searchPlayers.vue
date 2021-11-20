@@ -441,4 +441,8 @@ export default {
 .label{
     font-size: 2rem;
 }
+
+
+
+
 </style>

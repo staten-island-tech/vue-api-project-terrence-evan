@@ -42,6 +42,7 @@ methods: {
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap');
+
 html, body, *{
   font-size: 62.5%;
   box-sizing: border-box;
@@ -139,4 +140,82 @@ html, body, *{
 #nav li:hover .nav-list-item:not(#settings) {
   color: #EF5757;
 }
+
+@media only screen and (min-width:300px) {
+  html,body, *{
+    font-size: 30%
+    
+  }
+
+  .dropdown a {
+    font-size: 2rem
+  }
+
+
+
+  .challenger-column-small {
+    display: none;
+  }
+
+  .challenger-column-name {
+    width: 40%;
+  }
+
+  .challenger-column-tier {
+    width: 30%;
+  }
+  .challenger-column-points {
+    width: 20%;
+  }
+
+  }
+
+@media only screen and (min-width: 481px) {
+  html,body,*{
+    font-size: 40%;
+}
+
+}
+
+@media only screen and (min-width: 600px) {
+  html,body,*{ 
+    font-size: 40%;
+  }
+
+    .challenger-column-small {
+    display: flex;
+  }
+
+    .challenger-column-name {
+    width: 30%;
+  }
+
+  .challenger-column-tier {
+    width: 20%;
+  }
+  .challenger-column-points {
+    width: 10%;
+  }
+}
+
+@media only screen and (min-width:801px) {
+  html,body,*{
+    font-size: 55%
+  }
+}
+
+
+@media only screen and (min-width: 1025px) {
+  html,body,*{
+    font-size: 62.5%;
+  }
+}
+
+@media only screen and (min-width: 1281px) {
+  html,body,*{
+    font-size: 62.5%;
+  }
+
+}
+
 </style>
