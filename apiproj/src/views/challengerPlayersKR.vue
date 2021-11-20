@@ -81,7 +81,7 @@ export default {
 }
 
 .challenger-container-header {
-  width: 75vw;
+  width: 80vw;
   height: 6vh;
   display: flex;
   align-items: center;

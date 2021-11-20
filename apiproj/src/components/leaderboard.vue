@@ -76,7 +76,7 @@ export default {
 
 .challenger-container {
   display: flex;
-  width: 75vw;
+  width: 80vw;
   text-align: center;
   align-items: center;
 }
@@ -100,6 +100,9 @@ export default {
 
 .challenger-column-small {
   width: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .challenger-column-points {
@@ -108,7 +111,7 @@ export default {
 
 .challenger-container {
   display: flex;
-  width: 75vw;
+  width: vw;
   text-align: center;
   align-items: center;
 }
@@ -119,6 +122,62 @@ export default {
 
 .challenger-container:nth-child(2n + 1) {
   background-color: #1f1f1f;
+}
+
+@media only screen and (min-width:300px) {
+
+  #name {
+    font-size: 1.8rem
+  }
+
+  .challenger-column-name {
+    width: 40%;
+  }
+
+  .challenger-column-tier {
+    width: 30%;
+  }
+  .challenger-column-points {
+    width: 20%;
+  }
+
+  }
+
+@media only screen and (min-width: 481px) {
+
+  .challenger-column-name {
+    width: 40%;
+  }
+
+  .challenger-column-tier {
+    width: 30%;
+  }
+  .challenger-column-points {
+    width: 20%;
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  
+  .challenger-column-name {
+    width: 30%;
+  }
+
+  .challenger-column-tier {
+    width: 20%;
+  }
+  .challenger-column-points {
+    width: 10%;
+  }
+  .challenger-column-small {
+    width: 10%;
+  }
+}
+
+@media only screen and (min-width:801px) {
+  #name {
+    font-size: 2.5rem;
+  }
 }
 
 </style>

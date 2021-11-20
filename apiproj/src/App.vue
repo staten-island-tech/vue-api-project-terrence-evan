@@ -147,6 +147,16 @@ html, body, *{
     
   }
 
+  .dropdown a {
+    font-size: 2rem
+  }
+
+
+
+  .challenger-column-small {
+    display: none;
+  }
+
   .challenger-column-name {
     width: 40%;
   }
@@ -165,21 +175,11 @@ html, body, *{
     font-size: 40%;
 }
 
-  .challenger-column-name {
-    width: 40%;
-  }
-
-  .challenger-column-tier {
-    width: 30%;
-  }
-  .challenger-column-points {
-    width: 20%;
-  }
 }
 
 @media only screen and (min-width: 600px) {
   html,body,*{ 
-    font-size: 45%;
+    font-size: 40%;
   }
 
     .challenger-column-small {
@@ -204,6 +204,7 @@ html, body, *{
   }
 }
 
+
 @media only screen and (min-width: 1025px) {
   html,body,*{
     font-size: 62.5%;
@@ -214,6 +215,7 @@ html, body, *{
   html,body,*{
     font-size: 62.5%;
   }
+
 }
 
 </style>
