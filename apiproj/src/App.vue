@@ -67,7 +67,7 @@ html, body, *{
   display: flex;
   align-items: center;
   list-style-type: none;
-  height: 10vh;
+  height: 8vh;
   width: 100%;
 }
 
@@ -152,22 +152,6 @@ html, body, *{
   }
 
 
-
-  .challenger-column-small {
-    display: none;
-  }
-
-  .challenger-column-name {
-    width: 40%;
-  }
-
-  .challenger-column-tier {
-    width: 30%;
-  }
-  .challenger-column-points {
-    width: 20%;
-  }
-
   }
 
 @media only screen and (min-width: 481px) {
@@ -180,21 +164,6 @@ html, body, *{
 @media only screen and (min-width: 600px) {
   html,body,*{ 
     font-size: 40%;
-  }
-
-    .challenger-column-small {
-    display: flex;
-  }
-
-    .challenger-column-name {
-    width: 30%;
-  }
-
-  .challenger-column-tier {
-    width: 20%;
-  }
-  .challenger-column-points {
-    width: 10%;
   }
 }
 
@@ -211,11 +180,5 @@ html, body, *{
   }
 }
 
-@media only screen and (min-width: 1281px) {
-  html,body,*{
-    font-size: 62.5%;
-  }
-
-}
 
 </style>
