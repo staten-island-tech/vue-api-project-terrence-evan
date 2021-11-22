@@ -23,7 +23,7 @@ methods: {
     fetchChampion: async function () {
       try {
         const response = await fetch(
-          "http://ddragon.leagueoflegends.com/cdn/11.23.1/data/en_US/champion.json"
+          "https://ddragon.leagueoflegends.com/cdn/11.23.1/data/en_US/champion.json"
         );
         const data = await response.json();
         this.championArr = data.data;       

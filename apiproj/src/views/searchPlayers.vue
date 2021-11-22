@@ -233,7 +233,7 @@ export default {
         },
         getChampionInfo: async function(){
             try {
-                const championDataResponse = await fetch("http://ddragon.leagueoflegends.com/cdn/11.22.1/data/en_US/champion.json")
+                const championDataResponse = await fetch("https://ddragon.leagueoflegends.com/cdn/11.22.1/data/en_US/champion.json")
                 const championData = await championDataResponse.json()  
                 Object.keys(championData.data).forEach((champion) => {
                         const test = championData.data[champion]
