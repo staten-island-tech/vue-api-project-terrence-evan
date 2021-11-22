@@ -189,9 +189,14 @@ export default {
                             }         
                         })
                         if (index === array.length - 1) {
-                            storageTop.push(...storage.slice(0,5))
+                            const hi = storage.slice(0,5)
+                            console.log(hi)
                         } 
                     })
+                    storageTop.forEach(champion =>{
+                        champion.replace(/ /g, "")
+                    })
+                    console.log(storageTop)
                     this.summonerInfo[0].top = storageTop
                     document.getElementById("first").src = `http://ddragon.leagueoflegends.com/cdn/11.23.1/img/champion/${storageTop[0]}.png`
                     document.getElementById("second").src = `http://ddragon.leagueoflegends.com/cdn/11.23.1/img/champion/${storageTop[1]}.png`
@@ -208,7 +213,6 @@ export default {
             try {
                 const championDataResponse = await fetch("http://ddragon.leagueoflegends.com/cdn/11.22.1/data/en_US/champion.json")
                 const championData = await championDataResponse.json()  
-                console.log(championData)
                 Object.keys(championData.data).forEach((champion) => {
                         const test = championData.data[champion]
                         this.reference.push({ id: test.key, champion: test.name})
