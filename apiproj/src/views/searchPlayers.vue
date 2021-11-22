@@ -26,31 +26,31 @@
             </div>
             <div class="champinfo" v-for="(info, id) in summonerInfo" :key="id">
                 <div class="mastery fourth">
-                    <h1 class="label">Fourth</h1>
+                    <h1 class="label">4th</h1>
                     <img class="championimg" src="" id="fourth">
                     <h2 class="championname">{{info.top[3]}}</h2>
                     <h3 class="masterypoints">{{info.masteryPoints[3]}}</h3>
                 </div>
                 <div class="mastery second">
-                    <h1 class="label">Second</h1>
+                    <h1 class="label">2nd</h1>
                     <img class="championimg" src="" id="second">
                     <h2 class="championname">{{info.top[1]}}</h2>
                     <h3 class="masterypoints">{{info.masteryPoints[1]}}</h3>
                 </div>
                 <div class="mastery first">
-                    <h1 class="label">First</h1>
+                    <h1 class="label">1st</h1>
                     <img class="championimg" src="" id="first">
                     <h2 class="championname">{{info.top[0]}}</h2>
                     <h3 class="masterypoints">{{info.masteryPoints[0]}}</h3>
                 </div>
                 <div class="mastery third">
-                    <h1 class="label">Third</h1>
+                    <h1 class="label">3rd</h1>
                     <img class="championimg" src="" id="third">
                     <h2 class="championname">{{info.top[2]}}</h2>
                     <h3 class="masterypoints">{{info.masteryPoints[2]}}</h3>
                 </div>
                 <div class="mastery fifth">
-                    <h1 class="label">Fifth</h1>
+                    <h1 class="label">5th</h1>
                     <img class="championimg" src="" id="fifth">
                     <h2 class="championname">{{info.top[4]}}</h2>
                     <h3 class="masterypoints">{{info.masteryPoints[4]}}</h3>
@@ -90,7 +90,7 @@ export default {
                     document.getElementById("searchcontainer").style.width = "60vw"
                     document.getElementById("searchcontainer").style.height = "5vh"
                     document.getElementById("searchbar").style.fontSize = "1.75rem"
-                    document.getElementsByClassName("fas")[1].style.fontSize = "2rem"
+                    document.getElementsByClassName("fas")[0].style.fontSize = "2rem"
                     document.getElementById("infoPage").style.display = "flex"
                     document.getElementById("searchcontainer").style.marginTop = "20vh"
                     document.getElementById("mainlogo").style.display = "none";
@@ -228,7 +228,7 @@ export default {
                     e.srcElement.value = ""
                 }
             } catch (error) {
-                window.alert("No such username exists")
+                console.log(error)
             }
         },
         getChampionInfo: async function(){
@@ -418,10 +418,11 @@ export default {
 }
 .championname{
     font-size: 2rem;
-    color: #c3b8b8;
+    color: white;
 }
 .masterypoints{
     font-size: 2rem;
+    color: #c3b8b8;
 }
 .championimg{
     width: 6vw;
