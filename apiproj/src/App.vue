@@ -14,7 +14,7 @@
             <router-link to="/leaderboard/OCE" @click.native="close">Oceania</router-link>
           </div>
         </li>
-        <li><div id="settings" class="nav-list-item"><i class="fas fa-user-cog"></i></div></li>
+        <li><router-link class="nav-list-item" to="/champions">Champions</router-link></li>
       </ul>
     </nav>
     <router-view/>
@@ -106,14 +106,6 @@ html, body, *{
 
 .dropdown a:hover {
   color: #B83333;
-}
-
-#nav li:last-of-type {
-  margin-left: auto;
-}
-
-.fa-user-cog {
-  font-size: 3rem;
 }
 
 #nav li {
