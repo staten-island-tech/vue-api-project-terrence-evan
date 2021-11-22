@@ -29,26 +29,31 @@
                     <h1 class="label">Fourth</h1>
                     <img class="championimg" src="" id="fourth">
                     <h2 class="championname">{{info.top[3]}}</h2>
+                    <h3 class="masterypoints">{{info.masteryPoints[3]}}</h3>
                 </div>
                 <div class="mastery second">
                     <h1 class="label">Second</h1>
                     <img class="championimg" src="" id="second">
                     <h2 class="championname">{{info.top[1]}}</h2>
+                    <h3 class="masterypoints">{{info.masteryPoints[1]}}</h3>
                 </div>
                 <div class="mastery first">
                     <h1 class="label">First</h1>
                     <img class="championimg" src="" id="first">
                     <h2 class="championname">{{info.top[0]}}</h2>
+                    <h3 class="masterypoints">{{info.masteryPoints[0]}}</h3>
                 </div>
                 <div class="mastery third">
                     <h1 class="label">Third</h1>
                     <img class="championimg" src="" id="third">
                     <h2 class="championname">{{info.top[2]}}</h2>
+                    <h3 class="masterypoints">{{info.masteryPoints[2]}}</h3>
                 </div>
                 <div class="mastery fifth">
                     <h1 class="label">Fifth</h1>
                     <img class="championimg" src="" id="fifth">
                     <h2 class="championname">{{info.top[4]}}</h2>
+                    <h3 class="masterypoints">{{info.masteryPoints[4]}}</h3>
                 </div>
             </div>
         </div>
@@ -67,7 +72,8 @@ export default {
                     level:"",
                     rankingSolo: "",
                     rankingFlex:"",
-                    top: []
+                    top: [],
+                    masteryPoints: []
                 }
             ],
             reference: []
@@ -84,7 +90,7 @@ export default {
                     document.getElementById("searchcontainer").style.width = "60vw"
                     document.getElementById("searchcontainer").style.height = "5vh"
                     document.getElementById("searchbar").style.fontSize = "1.75rem"
-                    document.querySelector(".fa-search").style.fontSize = "2rem"
+                    document.getElementsByClassName("fas")[1].style.fontSize = "2rem"
                     document.getElementById("infoPage").style.display = "flex"
                     document.getElementById("searchcontainer").style.marginTop = "20vh"
                     document.getElementById("mainlogo").style.display = "none";
@@ -175,13 +181,19 @@ export default {
                     // Gets champion mastery data
                     const championMasteryResponse = await fetch(`https://na1.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/${mainData.id}?api_key=RGAPI-d295b5ba-73ab-4ae4-85ef-97261fa05294`)
                     const championMastery = await championMasteryResponse.json()
+                    console.log(championMastery)
                     let userKeys = []
+                    let points = []
                     championMastery.forEach(e => {
                         const championId = e.championId
+                        const championMastery = e.championPoints
+                        points.push(championMastery)
                         userKeys.push(championId)
                     });
+                    this.summonerInfo[0].masteryPoints = points
                     let storage = []
                     let storageTop = []
+                    let forImg = []
                     userKeys.forEach((key, index, array) => {
                         JSON.parse(JSON.stringify(this.reference)).forEach(championObj => {
                             if (championObj.id === `${key}`) {
@@ -189,15 +201,30 @@ export default {
                             }         
                         })
                         if (index === array.length - 1) {
-                            storageTop.push(...storage.slice(0,5))
+                            const temp = storage.slice(0,5)
+                            temp.forEach(e => {
+                                storageTop.push(e)
+                                if (/\s/.test(e)){
+                                    let text = e.replace(/ /g, "")
+                                    forImg.push(text)
+                                } else if (e.indexOf('\'') >= 0) {
+                                    let text = e.replace(/'/, "")
+                                    const newerText = text.charAt(0).toUpperCase() + text.slice(1).toLowerCase()
+                                    forImg.push(newerText)
+                                } else {
+                                    forImg.push(e)
+                                }
+                            })
                         } 
                     })
+                    console.log(storageTop)
+                    console.log(forImg)
                     this.summonerInfo[0].top = storageTop
-                    document.getElementById("first").src = `http://ddragon.leagueoflegends.com/cdn/11.23.1/img/champion/${storageTop[0]}.png`
-                    document.getElementById("second").src = `http://ddragon.leagueoflegends.com/cdn/11.23.1/img/champion/${storageTop[1]}.png`
-                    document.getElementById("third").src = `http://ddragon.leagueoflegends.com/cdn/11.23.1/img/champion/${storageTop[2]}.png`
-                    document.getElementById("fourth").src = `http://ddragon.leagueoflegends.com/cdn/11.23.1/img/champion/${storageTop[3]}.png`
-                    document.getElementById("fifth").src = `http://ddragon.leagueoflegends.com/cdn/11.23.1/img/champion/${storageTop[4]}.png`
+                    document.getElementById("first").src = `http://ddragon.leagueoflegends.com/cdn/11.23.1/img/champion/${forImg[0]}.png`
+                    document.getElementById("second").src = `http://ddragon.leagueoflegends.com/cdn/11.23.1/img/champion/${forImg[1]}.png`
+                    document.getElementById("third").src = `http://ddragon.leagueoflegends.com/cdn/11.23.1/img/champion/${forImg[2]}.png`
+                    document.getElementById("fourth").src = `http://ddragon.leagueoflegends.com/cdn/11.23.1/img/champion/${forImg[3]}.png`
+                    document.getElementById("fifth").src = `http://ddragon.leagueoflegends.com/cdn/11.23.1/img/champion/${forImg[4]}.png`
                     e.srcElement.value = ""
                 }
             } catch (error) {
@@ -208,7 +235,6 @@ export default {
             try {
                 const championDataResponse = await fetch("http://ddragon.leagueoflegends.com/cdn/11.22.1/data/en_US/champion.json")
                 const championData = await championDataResponse.json()  
-                console.log(championData)
                 Object.keys(championData.data).forEach((champion) => {
                         const test = championData.data[champion]
                         this.reference.push({ id: test.key, champion: test.name})
@@ -394,6 +420,9 @@ export default {
     font-size: 2rem;
     color: #c3b8b8;
 }
+.masterypoints{
+    font-size: 2rem;
+}
 .championimg{
     width: 6vw;
     border-radius: 50%;
@@ -474,5 +503,4 @@ export default {
 }
 
 }
-
 </style>
