@@ -2,14 +2,14 @@
   <section id="champion-display">
       <div class="champion-container">
           <div v-for="champion in championArr" :key=champion.name  class="champion-box">
-              <p class="champion-name">{{champion.name}}</p>
-              <img src="">
+              <championComp :champion="champion" />
           </div>
       </div>
   </section>
 </template>
 
 <script>
+import championComp from "../components/championComp"
 export default {
 data() {
     return {
@@ -33,6 +33,9 @@ methods: {
       }
     }
 },
+components: {
+    championComp
+}
 
 }
 
@@ -45,23 +48,28 @@ methods: {
     display: flex;
     align-items: center;
     justify-content: center;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("../assets/background.png");
+    background-position: center;
 }
 
 .champion-container {
-    margin-top: 15vh;
+    margin-top: 20vh;
     margin-bottom: 5vh;
     width: 90vw;
-    background-color: gray;
+    background-color: #1f1f1f;
     display: flex;
-    align-items: center;
     justify-content: center;
     flex-wrap: wrap;
 
 }
 .champion-box {
-    width: 12vw;
-    height: 22vh;
-    background-color: lightblue;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 15%;
+    background-color: #292929;
     margin: 2rem;
 }
 

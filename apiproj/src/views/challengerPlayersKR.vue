@@ -80,14 +80,6 @@ export default {
   padding-top: 16rem;
 }
 
-.challenger-container-header {
-  width: 80vw;
-  height: 6vh;
-  display: flex;
-  align-items: center;
-  background-color: #292929;
-  text-align: center;
-}
 
 
 </style>

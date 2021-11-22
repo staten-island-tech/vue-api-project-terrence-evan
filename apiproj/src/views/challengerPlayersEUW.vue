@@ -81,12 +81,20 @@ export default {
 }
 
 .challenger-container-header {
-  width: 75vw;
+  width: 80vw;
   height: 6vh;
   display: flex;
   align-items: center;
   background-color: #292929;
   text-align: center;
 }
+
+
+@media only screen and (max-width: 600px) {
+    .challenger-container-header {
+    width: 90vw;
+  }
+}
+
 
 </style>

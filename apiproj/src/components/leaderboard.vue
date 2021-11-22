@@ -145,6 +145,10 @@ export default {
     width: 20%;
   }
 
+  .challenger-container {
+    width: 90vw;
+  }
+
   }
 
 @media only screen and (min-width: 481px) {
@@ -187,6 +191,10 @@ export default {
   }
   .challenger-column-small {
     width: 10%;
+  }
+
+  .challenger-container {
+    width: 80vw;
   }
 }
 

@@ -277,6 +277,7 @@ export default {
     background-color: white;
 }
 .profilenav{
+    background-color: #1f1f1f;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -301,6 +302,7 @@ export default {
     height: 15vh;
 }
 #fillername {
+    color: white;
     font-size: 3rem;
     padding-left: 1rem;
     font-weight: normal;
@@ -308,6 +310,7 @@ export default {
     align-items: center;
 }
 #fillerlevel{
+    color: #c3b8b8;
     display: flex;
     align-items: center;
     width: 30vw;
@@ -323,9 +326,10 @@ export default {
 
 }
 .rankinfo{
+    background-color: white;
     width: 30vw;
     height: 58vh;
-    border: 1px solid black;
+    border: 4rem solid #292929;
     padding-left: 5rem;
     padding-right: 5rem;
     display: flex;
@@ -369,6 +373,7 @@ export default {
     font-size: 2rem;
 }
 .champinfo{
+    background-color: #292929;
     width: 70vw;
     height: 58vh;
     border: 1px solid black;
@@ -387,6 +392,7 @@ export default {
 }
 .championname{
     font-size: 2rem;
+    color: #c3b8b8;
 }
 .championimg{
     width: 6vw;
@@ -395,38 +401,39 @@ export default {
 .first{
     width: 12vw;
     height: 35vh;
-    background-color: pink;
+    background-color: #1f1f1f;
     position: relative;
     top: -6vh;
 }
 .second{
     width: 12vw;
     height: 35vh;
-    background-color: pink;
+    background-color: #1f1f1f;
     position: relative;
     top: -3vh;
 }
 .third{
     width: 12vw;
     height: 35vh;
-    background-color: pink;
+    background-color: #1f1f1f;
     position: relative;
     top: -3vh;
 }
 .fourth{
     width: 12vw;
     height: 35vh;
-    background-color: pink;
+    background-color: #1f1f1f;
     position: relative;
 }
 .fifth{
     width: 12vw;
     height: 35vh;
-    background-color: pink;
+    background-color: #1f1f1f;
     position: relative;
 }
 .label{
     font-size: 2rem;
+    color: white;
 }
 
 
@@ -460,6 +467,10 @@ export default {
     width: 20vw;
     height: 10vh;
     margin: 1rem;
+}
+
+#mainlogo{
+    width: 50vw;
 }
 
 }

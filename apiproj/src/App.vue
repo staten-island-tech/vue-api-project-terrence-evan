@@ -60,8 +60,6 @@ html, body, *{
 }
 .nav-image {
   width: 8vw;
-  max-height: 10vh;
-
 }
 .nav-list {
   display: flex;
@@ -135,14 +133,16 @@ html, body, *{
 
 @media only screen and (min-width:300px) {
   html,body, *{
-    font-size: 30%
-    
+    font-size: 35%
   }
 
   .dropdown a {
     font-size: 2rem
   }
 
+    .nav-image {
+    width: 15vw;
+  }
 
   }
 
@@ -151,11 +151,18 @@ html, body, *{
     font-size: 40%;
 }
 
+  .nav-image {
+    width: 15vw;
+  }
 }
 
 @media only screen and (min-width: 600px) {
   html,body,*{ 
     font-size: 40%;
+  }
+
+  .nav-image {
+    width: 8vw;
   }
 }
 
