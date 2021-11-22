@@ -220,11 +220,11 @@ export default {
                     console.log(storageTop)
                     console.log(forImg)
                     this.summonerInfo[0].top = storageTop
-                    document.getElementById("first").src = `http://ddragon.leagueoflegends.com/cdn/11.23.1/img/champion/${forImg[0]}.png`
-                    document.getElementById("second").src = `http://ddragon.leagueoflegends.com/cdn/11.23.1/img/champion/${forImg[1]}.png`
-                    document.getElementById("third").src = `http://ddragon.leagueoflegends.com/cdn/11.23.1/img/champion/${forImg[2]}.png`
-                    document.getElementById("fourth").src = `http://ddragon.leagueoflegends.com/cdn/11.23.1/img/champion/${forImg[3]}.png`
-                    document.getElementById("fifth").src = `http://ddragon.leagueoflegends.com/cdn/11.23.1/img/champion/${forImg[4]}.png`
+                    document.getElementById("first").src = `https://ddragon.leagueoflegends.com/cdn/11.23.1/img/champion/${forImg[0]}.png`
+                    document.getElementById("second").src = `https://ddragon.leagueoflegends.com/cdn/11.23.1/img/champion/${forImg[1]}.png`
+                    document.getElementById("third").src = `https://ddragon.leagueoflegends.com/cdn/11.23.1/img/champion/${forImg[2]}.png`
+                    document.getElementById("fourth").src = `https://ddragon.leagueoflegends.com/cdn/11.23.1/img/champion/${forImg[3]}.png`
+                    document.getElementById("fifth").src = `https://ddragon.leagueoflegends.com/cdn/11.23.1/img/champion/${forImg[4]}.png`
                     e.srcElement.value = ""
                 }
             } catch (error) {

@@ -17,7 +17,7 @@ export default {
     },
     computed: {
         sprite: function() {
-          return `http://ddragon.leagueoflegends.com/cdn/11.23.1/img/champion/${this.champion.id}.png`
+          return `https://ddragon.leagueoflegends.com/cdn/11.23.1/img/champion/${this.champion.id}.png`
         }
     }
 }
