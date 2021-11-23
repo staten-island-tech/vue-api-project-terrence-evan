@@ -2,7 +2,7 @@
     <div>
       <div
         class="challenger-container"
-        v-for="(challenger, index) in challengers"
+        v-for="(challenger, index) in challengers.slice(0,20)"
         :key="index"
       >
         <div class="challenger-column-first">
@@ -10,6 +10,7 @@
         </div>
 
         <div class="challenger-column-name">
+          <summonerIcon :challenger="challenger"/>
           <p class="player-text" id="name">{{ challenger.summonerName }}</p>
         </div>
 
@@ -38,18 +39,30 @@
 </template>
 
 <script>
+import summonerIcon from "../components/summonerIcon"
 export default {
     name: "leaderboard",
     props: ["challengers"], 
+    challenger: [],
     data() {
       return {
         tier: "Challenger",
        image: "https://static.u.gg/assets/lol/ranks/2d/challenger.svg",
       }
     },
+    created: function () {
+      this.challenger = this.challengers
+      console.log(this.challenger)
+    },
     methods: {
   
   },
+  computed: {
+
+  },
+  components: {
+    summonerIcon
+  }
 }
 </script>
 
