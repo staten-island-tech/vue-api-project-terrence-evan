@@ -29,15 +29,7 @@
         <p class="section-text">Win Ratio</p>
       </div>
     </div>
-
-      <div
-        class="challenger-container"
-        v-for="(challenger, index) in challengers"
-        :key="index"
-      >
-        <leaderboard :challenger ="challenger"/>
-      </div>
-
+        <leaderboard :challengers ="challengers"/>
   </section>
 </template>
 
@@ -100,7 +92,7 @@ export default {
 
 @media only screen and (max-width: 600px) {
     .challenger-container-header {
-    width: 100vw;
+    width: 90vw;
   }
 }
 
