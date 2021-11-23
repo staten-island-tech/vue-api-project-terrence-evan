@@ -345,7 +345,7 @@ export default {
     padding-left: 1rem;
 }
 .stuffcontainer{
-    width: 100vw;
+    width: 100%;
     height: 58vh;
     display: flex;
     flex-direction: row;
@@ -355,9 +355,6 @@ export default {
     background-color: white;
     width: 30vw;
     height: 58vh;
-    border: 4rem solid #292929;
-    padding-left: 5rem;
-    padding-right: 5rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -403,8 +400,6 @@ export default {
     width: 70vw;
     height: 58vh;
     border: 1px solid black;
-    padding-left: 5rem;
-    padding-right: 5rem;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
@@ -480,7 +475,7 @@ export default {
     justify-content: center;
 }
 .champinfo {
-    width: 90vw;
+    width: 100vw;
     padding: 10rem;
 }
 .championimg{
