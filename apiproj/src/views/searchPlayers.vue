@@ -16,12 +16,14 @@
         <div class="stuffcontainer">
             <div class="rankinfo">
                 <div class="ranksolo">
+                    <h1 class="ranktitle">Ranked Solo</h1>
                     <div id="ranksoloimg"></div>
-                    <div id="fillerranksolo">{{info.rankingSolo}}</div>
+                    <h2 id="fillerranksolo">{{info.rankingSolo}}   {{info.soloLP}} LP</h2>
                 </div>
                 <div class="rankflex">
+                    <h1 class="ranktitle">Ranked Flex</h1>
                     <div id="rankfleximg"></div>
-                    <div id="fillerrankflex">{{info.rankingFlex}}</div>
+                    <h2 id="fillerrankflex">{{info.rankingFlex}}   {{info.flexLP}} LP</h2>
                 </div>
             </div>
             <div class="champinfo" v-for="(info, id) in summonerInfo" :key="id">
@@ -29,31 +31,31 @@
                     <h1 class="label">4th</h1>
                     <img class="championimg" src="" id="fourth">
                     <h2 class="championname">{{info.top[3]}}</h2>
-                    <h3 class="masterypoints">{{info.masteryPoints[3]}}</h3>
+                    <h3 class="masterypoints">{{info.masteryPoints[3]}} points</h3>
                 </div>
                 <div class="mastery second">
                     <h1 class="label">2nd</h1>
                     <img class="championimg" src="" id="second">
                     <h2 class="championname">{{info.top[1]}}</h2>
-                    <h3 class="masterypoints">{{info.masteryPoints[1]}}</h3>
+                    <h3 class="masterypoints">{{info.masteryPoints[1]}} points</h3>
                 </div>
                 <div class="mastery first">
                     <h1 class="label">1st</h1>
                     <img class="championimg" src="" id="first">
                     <h2 class="championname">{{info.top[0]}}</h2>
-                    <h3 class="masterypoints">{{info.masteryPoints[0]}}</h3>
+                    <h3 class="masterypoints">{{info.masteryPoints[0]}} points</h3>
                 </div>
                 <div class="mastery third">
                     <h1 class="label">3rd</h1>
                     <img class="championimg" src="" id="third">
                     <h2 class="championname">{{info.top[2]}}</h2>
-                    <h3 class="masterypoints">{{info.masteryPoints[2]}}</h3>
+                    <h3 class="masterypoints">{{info.masteryPoints[2]}} points</h3>
                 </div>
                 <div class="mastery fifth">
                     <h1 class="label">5th</h1>
                     <img class="championimg" src="" id="fifth">
                     <h2 class="championname">{{info.top[4]}}</h2>
-                    <h3 class="masterypoints">{{info.masteryPoints[4]}}</h3>
+                    <h3 class="masterypoints">{{info.masteryPoints[4]}} points</h3>
                 </div>
             </div>
         </div>
@@ -71,6 +73,8 @@ export default {
                     username:"",
                     level:"",
                     rankingSolo: "",
+                    soloLP: "",
+                    flexLP: "",
                     rankingFlex:"",
                     top: [],
                     masteryPoints: []
@@ -92,7 +96,7 @@ export default {
                     document.getElementById("searchbar").style.fontSize = "1.75rem"
                     document.getElementsByClassName("fas")[0].style.fontSize = "2rem"
                     document.getElementById("infoPage").style.display = "flex"
-                    document.getElementById("searchcontainer").style.marginTop = "20vh"
+                    document.getElementById("searchcontainer").style.marginTop = "12.5vh"
                     document.getElementById("mainlogo").style.display = "none";
                     // Finds user's main profile info to be used later
                     const requested = e.srcElement.value
@@ -104,6 +108,7 @@ export default {
                     // Get rank data based on summoner ID, Never again
                     const rankResponse = await fetch(`https://na1.api.riotgames.com/lol/league/v4/entries/by-summoner/${mainData.id}?api_key=RGAPI-d295b5ba-73ab-4ae4-85ef-97261fa05294`)
                     const rankData = await rankResponse.json()
+                    console.log(rankData)
                     if (rankData.length === 2 && rankData[0].queueType === "RANKED_FLEX_SR" && rankData[1].queueType === "RANKED_SOLO_5x5"){
                         const rankPlaceSolo = rankData[1].tier
                         const rankPlaceLowerSolo = rankPlaceSolo.charAt(0).toUpperCase() + rankPlaceSolo.slice(1).toLowerCase()
@@ -111,19 +116,25 @@ export default {
                         const rankPlaceFlex = rankData[0].tier
                         const rankPlaceLowerFlex = rankPlaceFlex.charAt(0).toUpperCase() + rankPlaceFlex.slice(1).toLowerCase()
                         const rankFlexDivision = rankData[0].rank
+                        const flexLP = rankData[0].leaguePoints
+                        const soloLP = rankData[1].leaguePoints
                         if (rankPlaceSolo != "CHALLENGER"){
                             const rankSolo = `${rankPlaceLowerSolo} ${rankSoloDivision}`
                             this.summonerInfo[0].rankingSolo = rankSolo
                             const rankFlex = `${rankPlaceLowerFlex} ${rankFlexDivision}`
                             this.summonerInfo[0].rankingFlex = rankFlex
+                            this.summonerInfo[0].soloLP = soloLP
+                            this.summonerInfo[0].flexLP = flexLP
                         } else if (rankPlaceSolo === "CHALLENGER"){
                             const rankSolo = `${rankPlaceLowerSolo}`
                             this.summonerInfo[0].rankingSolo = rankSolo
-                            const rankFlex = `${rankPlaceLowerFlex}`
+                            const rankFlex = `${rankPlaceLowerFlex} ${rankFlexDivision}`
                             this.summonerInfo[0].rankingFlex = rankFlex
+                            this.summonerInfo[0].soloLP = soloLP
+                            this.summonerInfo[0].flexLP = flexLP
                         }
-                        document.getElementById("ranksoloimg").style.backgroundImage = `url(${require(`../assets/${rankPlaceLowerSolo}.jpg`)})`
-                        document.getElementById("rankfleximg").style.backgroundImage = `url(${require(`../assets/${rankPlaceLowerFlex}.jpg`)})`
+                        document.getElementById("ranksoloimg").style.backgroundImage = `url(${require(`../assets/${rankPlaceLowerSolo}.png`)})`
+                        document.getElementById("rankfleximg").style.backgroundImage = `url(${require(`../assets/${rankPlaceLowerFlex}.png`)})`
                     } else if (rankData.length === 2 && rankData[1].queueType === "RANKED_FLEX_SR" && rankData[0].queueType === "RANKED_SOLO_5x5"){
                         const rankPlaceSolo = rankData[0].tier
                         const rankPlaceLowerSolo = rankPlaceSolo.charAt(0).toUpperCase() + rankPlaceSolo.slice(1).toLowerCase()
@@ -131,46 +142,58 @@ export default {
                         const rankPlaceFlex = rankData[1].tier
                         const rankPlaceLowerFlex = rankPlaceFlex.charAt(0).toUpperCase() + rankPlaceFlex.slice(1).toLowerCase()
                         const rankFlexDivision = rankData[1].rank
+                        const flexLP = rankData[1].leaguePoints
+                        const soloLP = rankData[0].leaguePoints
                         if (rankPlaceSolo != "CHALLENGER"){
                             const rankSolo = `${rankPlaceLowerSolo} ${rankSoloDivision}`
                             this.summonerInfo[0].rankingSolo = rankSolo
                             const rankFlex = `${rankPlaceLowerFlex} ${rankFlexDivision}`
                             this.summonerInfo[0].rankingFlex = rankFlex
+                            this.summonerInfo[0].soloLP = soloLP
+                            this.summonerInfo[0].flexLP = flexLP
                         } else if (rankPlaceSolo === "CHALLENGER"){
                             const rankSolo = `${rankPlaceLowerSolo}`
                             this.summonerInfo[0].rankingSolo = rankSolo
-                             const rankFlex = `${rankPlaceLowerFlex}`
+                            const rankFlex = `${rankPlaceLowerFlex} ${rankFlexDivision}`
                             this.summonerInfo[0].rankingFlex = rankFlex
+                            this.summonerInfo[0].soloLP = soloLP
+                            this.summonerInfo[0].flexLP = flexLP
                         }                 
-                        document.getElementById("ranksoloimg").style.backgroundImage = `url(${require(`../assets/${rankPlaceLowerSolo}.jpg`)})`
-                        document.getElementById("rankfleximg").style.backgroundImage = `url(${require(`../assets/${rankPlaceLowerFlex}.jpg`)})`
+                        document.getElementById("ranksoloimg").style.backgroundImage = `url(${require(`../assets/${rankPlaceLowerSolo}.png`)})`
+                        document.getElementById("rankfleximg").style.backgroundImage = `url(${require(`../assets/${rankPlaceLowerFlex}.png`)})`
                     } else if (rankData.length === 1 && rankData[0].queueType === "RANKED_SOLO_5x5"){
                         const rankPlaceSolo = rankData[0].tier
                         const rankPlaceLowerSolo = rankPlaceSolo.charAt(0).toUpperCase() + rankPlaceSolo.slice(1).toLowerCase()
                         const rankSoloDivision = rankData[0].rank
+                        const soloLP = rankData[0].leaguePoints
                         if (rankPlaceSolo != "CHALLENGER"){
                             const rankSolo = `${rankPlaceLowerSolo} ${rankSoloDivision}`
                             this.summonerInfo[0].rankingSolo = rankSolo
+                            this.summonerInfo[0].soloLP = soloLP
                         } else if (rankPlaceSolo === "CHALLENGER"){
                             const rankSolo = `${rankPlaceLowerSolo}`
                             this.summonerInfo[0].rankingSolo = rankSolo
+                            this.summonerInfo[0].soloLP = soloLP
                         }
-                        document.getElementById("ranksoloimg").style.backgroundImage = `url(${require(`../assets/${rankPlaceLowerSolo}.jpg`)})`
+                        document.getElementById("ranksoloimg").style.backgroundImage = `url(${require(`../assets/${rankPlaceLowerSolo}.png`)})`
                         document.getElementById("rankfleximg").style.backgroundImage = "none"
                         this.summonerInfo[0].rankingFlex = "Unranked"
                     } else if (rankData.length === 1 && rankData[0].queueType === "RANKED_FLEX_SR"){
                         const rankPlaceFlex = rankData[0].tier
                         const rankPlaceLowerFlex = rankPlaceFlex.charAt(0).toUpperCase() + rankPlaceFlex.slice(1).toLowerCase()
                         const rankFlexDivision = rankData[0].rank
+                        const flexLP = rankData[0].leaguePoints
                         if (rankPlaceFlex != "CHALLENGER"){
                             const rankFlex = `${rankPlaceLowerFlex} ${rankFlexDivision}`
                             this.summonerInfo[0].rankingFlex = rankFlex
+                            this.summonerInfo[0].flexLP = flexLP
                         } else if (rankPlaceFlex === "CHALLENGER"){
-                            const rankFlex = `${rankPlaceLowerFlex}`
+                            const rankFlex = `${rankPlaceLowerFlex} ${rankFlexDivision}`
                             this.summonerInfo[0].rankingFlex = rankFlex
+                            this.summonerInfo[0].flexLP = flexLP
                         }
                         document.getElementById("ranksoloimg").style.backgroundImage = "none"
-                        document.getElementById("rankfleximg").style.backgroundImage = `url(${require(`../assets/${rankPlaceLowerFlex}.jpg`)})`
+                        document.getElementById("rankfleximg").style.backgroundImage = `url(${require(`../assets/${rankPlaceLowerFlex}.png`)})`
                         this.summonerInfo[0].rankingSolo = "Unranked"
                     } else if (rankData.length === 0) {
                         this.summonerInfo[0].rankingSolo = "Unranked omegalul"
@@ -181,13 +204,13 @@ export default {
                     // Gets champion mastery data
                     const championMasteryResponse = await fetch(`https://na1.api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/${mainData.id}?api_key=RGAPI-d295b5ba-73ab-4ae4-85ef-97261fa05294`)
                     const championMastery = await championMasteryResponse.json()
-                    console.log(championMastery)
                     let userKeys = []
                     let points = []
                     championMastery.forEach(e => {
                         const championId = e.championId
                         const championMastery = e.championPoints
-                        points.push(championMastery)
+                        const comma = championMastery.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
+                        points.push(comma)
                         userKeys.push(championId)
                     });
                     this.summonerInfo[0].masteryPoints = points
@@ -217,8 +240,6 @@ export default {
                             })
                         } 
                     })
-                    console.log(storageTop)
-                    console.log(forImg)
                     this.summonerInfo[0].top = storageTop
                     document.getElementById("first").src = `https://ddragon.leagueoflegends.com/cdn/11.23.1/img/champion/${forImg[0]}.png`
                     document.getElementById("second").src = `https://ddragon.leagueoflegends.com/cdn/11.23.1/img/champion/${forImg[1]}.png`
@@ -346,15 +367,23 @@ export default {
 }
 .stuffcontainer{
     width: 100%;
-    height: 58vh;
+    height: 65vh;
     display: flex;
     flex-direction: row;
-
+}
+.ranktitle{
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    padding-bottom: 1rem;
 }
 .rankinfo{
-    background-color: white;
+    border: 1px solid black;
+    background-color: #292929;
     width: 30vw;
-    height: 58vh;
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -369,10 +398,11 @@ export default {
     width: 10vw;
     height: 20vh;
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: contain;
     background-position: center;
 }
 #fillerranksolo{
+    color: #c3b5b0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -386,7 +416,8 @@ export default {
 #rankfleximg{
     width: 10vw;
     height: 20vh;
-    background-size: cover;
+    background-repeat: no-repeat;
+    background-size: contain;
     background-position: center;
 }
 #fillerrankflex{
@@ -394,11 +425,12 @@ export default {
     justify-content: center;
     align-items: center;
     font-size: 2rem;
+    color: #c3b5b0;
 }
 .champinfo{
     background-color: #292929;
     width: 70vw;
-    height: 58vh;
+    height: 100%;
     border: 1px solid black;
     display: flex;
     justify-content: space-evenly;
@@ -422,38 +454,47 @@ export default {
 .championimg{
     width: 6vw;
     border-radius: 50%;
+    border: 2px solid gold;
 }
 .first{
     width: 12vw;
-    height: 35vh;
+    height: 45vh;
     background-color: #1f1f1f;
     position: relative;
-    top: -6vh;
+    top: -7.5vh;
 }
+/* .first::after{
+    content: "";
+    position: absolute;
+    border-left: 12vw solid transparent;
+    border-right: 12vw solid transparent;
+    border-top: 20vh solid white;
+}*/
 .second{
     width: 12vw;
-    height: 35vh;
+    height: 45vh;
     background-color: #1f1f1f;
     position: relative;
-    top: -3vh;
+    top: -5vh;
 }
 .third{
     width: 12vw;
-    height: 35vh;
+    height: 45vh;
     background-color: #1f1f1f;
     position: relative;
-    top: -3vh;
+    top: -2.5vh;
 }
 .fourth{
     width: 12vw;
-    height: 35vh;
+    height: 45vh;
     background-color: #1f1f1f;
     position: relative;
 }
 .fifth{
     width: 12vw;
-    height: 35vh;
+    height: 45vh;
     background-color: #1f1f1f;
+    top: 2.5vh;
     position: relative;
 }
 .label{
@@ -468,7 +509,7 @@ export default {
     align-items: center;
 }
 .rankinfo {
-    width: 90vw;
+    width: 100%;
     display: flex;
     flex-direction: row;
     align-items: center;
