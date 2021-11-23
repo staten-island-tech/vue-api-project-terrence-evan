@@ -1,8 +1,8 @@
 <template>
- <div>
-  <div id="championText"> {{champion.name}} </div>
-  <img id="championImage" :src="sprite" >
-  </div> 
+<div>
+    <div id="championText"> {{champion.name}} </div>
+    <img id="championImage" :src="sprite" >
+</div> 
 </template>
 
 <script>
@@ -14,7 +14,7 @@ export default {
         }
     },
     methods: {
-    },
+},
     computed: {
         sprite: function() {
           return `http://ddragon.leagueoflegends.com/cdn/11.23.1/img/champion/${this.champion.id}.png`

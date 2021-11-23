@@ -1,15 +1,11 @@
 <template>
     <div>
-      <div
-        class="challenger-container"
-        v-for="(challenger, index) in challengers"
-        :key="index"
-      >
         <div class="challenger-column-first">
           <p class="player-number" id="name">{{ index + 1 }}</p>
         </div>
 
         <div class="challenger-column-name">
+          <img class="player-icon" src="../assets/placeholder.jpg">
           <p class="player-text" id="name">{{ challenger.summonerName }}</p>
         </div>
 
@@ -34,7 +30,6 @@
           <div class="player-text">{{ Math.round((challenger.wins / (challenger.wins + challenger.losses)) * 100) }}%</div>
         </div>
         </div>
-      </div>
 </template>
 
 <script>
@@ -43,12 +38,27 @@ export default {
     props: ["challengers"], 
     data() {
       return {
+        singlePlayer: {},
         tier: "Challenger",
        image: "https://static.u.gg/assets/lol/ranks/2d/challenger.svg",
       }
     },
+    created: function () {
+    this.fetchIcon();
+    },
     methods: {
-  
+      fetchIcon: async function () {
+      try {
+        const response2 = await fetch(
+          `https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/${this.challengers.summonerName}?api_key=RGAPI-d295b5ba-73ab-4ae4-85ef-97261fa05294`
+        );
+        const result = await response2.json();
+        this.singlePlayer = result;
+        console.log(this.singlePlayer)
+    } catch(error){
+        console.log(error)
+    }
+    },
   },
 }
 </script>
@@ -146,7 +156,7 @@ export default {
   }
 
   .challenger-container {
-    width: 90vw;
+    width: 100vw;
   }
 
   }
