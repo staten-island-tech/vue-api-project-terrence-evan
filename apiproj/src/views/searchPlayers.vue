@@ -397,7 +397,7 @@ export default {
 }
 .champinfo{
     background-color: #292929;
-    width: 69vw;
+    width: 70vw;
     height: 58vh;
     border: 1px solid black;
     display: flex;
@@ -475,7 +475,7 @@ export default {
     justify-content: center;
 }
 .champinfo {
-    width: 90vw;
+    width: 100vw;
     padding: 10rem;
 }
 .championimg{
