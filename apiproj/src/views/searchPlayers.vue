@@ -372,10 +372,12 @@ export default {
     flex-direction: row;
 }
 .ranktitle{
+    color: white;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 2rem;
+    padding-bottom: 1rem;
 }
 .rankinfo{
     border: 1px solid black;
@@ -400,7 +402,7 @@ export default {
     background-position: center;
 }
 #fillerranksolo{
-    color: white;
+    color: #c3b5b0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -423,7 +425,7 @@ export default {
     justify-content: center;
     align-items: center;
     font-size: 2rem;
-    color: white;
+    color: #c3b5b0;
 }
 .champinfo{
     background-color: #292929;
@@ -507,7 +509,7 @@ export default {
     align-items: center;
 }
 .rankinfo {
-    width: 90vw;
+    width: 100%;
     display: flex;
     flex-direction: row;
     align-items: center;
