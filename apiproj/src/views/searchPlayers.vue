@@ -133,8 +133,8 @@ export default {
                             this.summonerInfo[0].soloLP = soloLP
                             this.summonerInfo[0].flexLP = flexLP
                         }
-                        document.getElementById("ranksoloimg").style.backgroundImage = `url(${require(`../assets/${rankPlaceLowerSolo}.jpg`)})`
-                        document.getElementById("rankfleximg").style.backgroundImage = `url(${require(`../assets/${rankPlaceLowerFlex}.jpg`)})`
+                        document.getElementById("ranksoloimg").style.backgroundImage = `url(${require(`../assets/${rankPlaceLowerSolo}.png`)})`
+                        document.getElementById("rankfleximg").style.backgroundImage = `url(${require(`../assets/${rankPlaceLowerFlex}.png`)})`
                     } else if (rankData.length === 2 && rankData[1].queueType === "RANKED_FLEX_SR" && rankData[0].queueType === "RANKED_SOLO_5x5"){
                         const rankPlaceSolo = rankData[0].tier
                         const rankPlaceLowerSolo = rankPlaceSolo.charAt(0).toUpperCase() + rankPlaceSolo.slice(1).toLowerCase()
@@ -159,8 +159,8 @@ export default {
                             this.summonerInfo[0].soloLP = soloLP
                             this.summonerInfo[0].flexLP = flexLP
                         }                 
-                        document.getElementById("ranksoloimg").style.backgroundImage = `url(${require(`../assets/${rankPlaceLowerSolo}.jpg`)})`
-                        document.getElementById("rankfleximg").style.backgroundImage = `url(${require(`../assets/${rankPlaceLowerFlex}.jpg`)})`
+                        document.getElementById("ranksoloimg").style.backgroundImage = `url(${require(`../assets/${rankPlaceLowerSolo}.png`)})`
+                        document.getElementById("rankfleximg").style.backgroundImage = `url(${require(`../assets/${rankPlaceLowerFlex}.png`)})`
                     } else if (rankData.length === 1 && rankData[0].queueType === "RANKED_SOLO_5x5"){
                         const rankPlaceSolo = rankData[0].tier
                         const rankPlaceLowerSolo = rankPlaceSolo.charAt(0).toUpperCase() + rankPlaceSolo.slice(1).toLowerCase()
@@ -175,7 +175,7 @@ export default {
                             this.summonerInfo[0].rankingSolo = rankSolo
                             this.summonerInfo[0].soloLP = soloLP
                         }
-                        document.getElementById("ranksoloimg").style.backgroundImage = `url(${require(`../assets/${rankPlaceLowerSolo}.jpg`)})`
+                        document.getElementById("ranksoloimg").style.backgroundImage = `url(${require(`../assets/${rankPlaceLowerSolo}.png`)})`
                         document.getElementById("rankfleximg").style.backgroundImage = "none"
                         this.summonerInfo[0].rankingFlex = "Unranked"
                     } else if (rankData.length === 1 && rankData[0].queueType === "RANKED_FLEX_SR"){
@@ -193,7 +193,7 @@ export default {
                             this.summonerInfo[0].flexLP = flexLP
                         }
                         document.getElementById("ranksoloimg").style.backgroundImage = "none"
-                        document.getElementById("rankfleximg").style.backgroundImage = `url(${require(`../assets/${rankPlaceLowerFlex}.jpg`)})`
+                        document.getElementById("rankfleximg").style.backgroundImage = `url(${require(`../assets/${rankPlaceLowerFlex}.png`)})`
                         this.summonerInfo[0].rankingSolo = "Unranked"
                     } else if (rankData.length === 0) {
                         this.summonerInfo[0].rankingSolo = "Unranked omegalul"
@@ -372,13 +372,16 @@ export default {
     flex-direction: row;
 }
 .ranktitle{
+    color: white;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 2rem;
+    padding-bottom: 1rem;
 }
 .rankinfo{
-    background-color: white;
+    border: 1px solid black;
+    background-color: #292929;
     width: 30vw;
     height: 100%;
     display: flex;
@@ -399,6 +402,7 @@ export default {
     background-position: center;
 }
 #fillerranksolo{
+    color: #c3b5b0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -421,6 +425,7 @@ export default {
     justify-content: center;
     align-items: center;
     font-size: 2rem;
+    color: #c3b5b0;
 }
 .champinfo{
     background-color: #292929;
@@ -504,7 +509,7 @@ export default {
     align-items: center;
 }
 .rankinfo {
-    width: 90vw;
+    width: 100%;
     display: flex;
     flex-direction: row;
     align-items: center;
