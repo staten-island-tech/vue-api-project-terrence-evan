@@ -1,8 +1,14 @@
 <template>
- <div>
-  <div id="championText"> {{champion.name}} </div>
-  <img id="championImage" :src="sprite" >
-  </div> 
+<div>
+    <div @click=button id="championWrapper">
+        <div id="championText"> {{champion.name}} </div>
+        <img id="championImage" :src="sprite" >
+    </div> 
+    <div v-if="show" class="champion-list">
+        <p>Hi</p>
+    </div>
+</div>
+  
 </template>
 
 <script>
@@ -32,5 +38,16 @@ export default {
 #championText{
     font-size: 2rem;
     color: #E0D5D5;
+}
+
+#championWrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.champion-list {
+    width: 15vw;
+    height: 10vh;
+    background-color: white;
 }
 </style>
