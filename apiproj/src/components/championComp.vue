@@ -68,13 +68,13 @@ export default {
 .champion-title {
     font-size: 2rem;
     width: 15vw;
-    color: #E0D5d5;
+    color: white;
     padding: 0.5rem;
     text-transform: capitalize;
 }
 
 #champion-blurb {
-    color: #E0D5d5;
+    color: #c3b8b8;
     font-size: 1rem;
     padding: 1rem;
 }
