@@ -1,7 +1,7 @@
 <template>
   <section id="champion-display">
       <div class="champion-container">
-          <div v-for="champion in championArr" :key=champion.name  class="champion-box">
+          <div @click="button" v-for="champion in championArr" :key=champion.name  class="champion-box">
               <championComp :champion="champion" />
           </div>
       </div>
@@ -31,7 +31,7 @@ methods: {
       } catch(error) {
           console.log(error)
       }
-    }
+    },
 },
 components: {
     championComp
@@ -72,5 +72,6 @@ components: {
     background-color: #292929;
     margin: 2rem;
 }
+
 
 </style>
