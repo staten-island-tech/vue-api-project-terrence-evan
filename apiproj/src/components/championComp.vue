@@ -1,8 +1,18 @@
 <template>
- <div>
-  <div id="championText"> {{champion.name}} </div>
-  <img id="championImage" :src="sprite" >
-  </div> 
+<div>
+    <div @click=toggle class="championWrapper">
+        <div id="championText"> {{champion.name}} </div>
+        <img id="championImage" :src="sprite" >
+    </div> 
+    <div class="championWrapper">
+        <div v-if="active" class="champion-list">
+            <p class="champion-title"> {{champion.title}}</p>
+            <p class="champion-title"> Class: {{champion.tags[0]}}  {{champion.tags[1]}}</p>
+            <p id="champion-blurb"> {{champion.blurb}}</p>
+        </div>
+    </div>
+</div>
+  
 </template>
 
 <script>
@@ -11,9 +21,13 @@ export default {
     props: ["champion"],
     data() {
         return {
+            active: false,
         }
     },
     methods: {
+    toggle() {
+    this.active = !this.active
+  },
     },
     computed: {
         sprite: function() {
@@ -31,6 +45,37 @@ export default {
 
 #championText{
     font-size: 2rem;
-    color: #E0D5D5;
+    color: white;
+}
+
+.championWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.champion-list {
+    background-color: #171313;
+    z-index: 2;
+    position: absolute;
+    max-width: 16vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.champion-title {
+    font-size: 2rem;
+    width: 15vw;
+    color: white;
+    padding: 0.5rem;
+    text-transform: capitalize;
+}
+
+#champion-blurb {
+    color: #c3b8b8;
+    font-size: 1rem;
+    padding: 1rem;
 }
 </style>

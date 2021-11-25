@@ -469,6 +469,8 @@ export default {
     background-color: #1f1f1f;
     position: relative;
     top: -7.5vh;
+    text-align: center;
+    
 }
 /* .first::after{
     content: "";
@@ -482,7 +484,8 @@ export default {
     height: 45vh;
     background-color: #1f1f1f;
     position: relative;
-    top: -5vh;
+    top: -2.5vh;
+    text-align: center;
 }
 .third{
     width: 12vw;
@@ -490,12 +493,15 @@ export default {
     background-color: #1f1f1f;
     position: relative;
     top: -2.5vh;
+    text-align: center;
 }
 .fourth{
     width: 12vw;
     height: 45vh;
     background-color: #1f1f1f;
     position: relative;
+    text-align: center;
+    top: 2.5vh;
 }
 .fifth{
     width: 12vw;
@@ -503,6 +509,7 @@ export default {
     background-color: #1f1f1f;
     top: 2.5vh;
     position: relative;
+    text-align: center;
 }
 .label{
     font-size: 2rem;
@@ -544,6 +551,26 @@ export default {
 
 #mainlogo{
     width: 50vw;
+}
+
+.first {
+    width: 15vw;
+}
+
+.second {
+    width: 15vw;
+}
+
+.third {
+    width: 15vw;
+}
+
+.fourth {
+    width: 15vw;
+}
+
+.fifth {
+    width: 15vw;
 }
 
 }
