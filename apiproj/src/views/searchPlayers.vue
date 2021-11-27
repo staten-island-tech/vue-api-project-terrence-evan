@@ -104,7 +104,7 @@ export default {
                     const mainData = await mainResponse.json()
                     this.summonerInfo[0].level = mainData.summonerLevel
                     this.summonerInfo[0].username = mainData.name
-                    document.getElementById("fillericon").style.backgroundImage = `url(http://ddragon.leagueoflegends.com/cdn/11.22.1/img/profileicon/${mainData.profileIconId}.png)`
+                    document.getElementById("fillericon").style.backgroundImage = `url(https://ddragon.leagueoflegends.com/cdn/11.22.1/img/profileicon/${mainData.profileIconId}.png)`
                     // Get rank data based on summoner ID, Never again
                     const rankResponse = await fetch(`https://na1.api.riotgames.com/lol/league/v4/entries/by-summoner/${mainData.id}?api_key=RGAPI-d295b5ba-73ab-4ae4-85ef-97261fa05294`)
                     const rankData = await rankResponse.json()
@@ -216,10 +216,11 @@ export default {
                     championMastery.forEach(e => {
                         const championId = e.championId
                         const championMastery = e.championPoints
-                        const comma = championMastery.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
-                        points.push(comma)
+                    /*   const comma = championMastery.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") */
+                        points.push(championMastery)
                         userKeys.push(championId)
                     });
+
                     this.summonerInfo[0].masteryPoints = points
                     let storage = []
                     let storageTop = []

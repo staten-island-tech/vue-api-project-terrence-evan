@@ -7,7 +7,7 @@
     <div class="championWrapper">
         <div v-if="active" class="champion-list">
             <p class="champion-title"> {{champion.title}}</p>
-            <p id="champion-class" class="champion-title"> Class: {{champion.tags[0]}}  {{champion.tags[1]}}</p>
+            <p class="champion-title"> Class: {{champion.tags[0]}}  {{champion.tags[1]}}</p>
             <p id="champion-blurb"> {{champion.blurb}}</p>
         </div>
     </div>
@@ -73,13 +73,9 @@ export default {
     text-transform: capitalize;
 }
 
-#champion-class {
-    font-size: 1.6rem;
-}
-
 #champion-blurb {
     color: #c3b8b8;
-    font-size: 1.1rem;
+    font-size: 1rem;
     padding: 1rem;
 }
 </style>

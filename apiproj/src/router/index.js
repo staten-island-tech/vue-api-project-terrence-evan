@@ -5,7 +5,7 @@ import search from "../views/searchPlayers.vue";
 import challengerEUW from "../views/challengerPlayersEUW.vue";
 import challengerOCE from "../views/challengerPlayersOCE.vue";
 import challengerKR from "../views/challengerPlayersKR.vue";
-import championList from "../views/championList.vue"
+import championList from "../views/championList.vue";
 
 Vue.use(VueRouter);
 
@@ -32,8 +32,8 @@ const routes = [
   },
   {
     path: "/champions",
-    component: championList
-  }
+    component: championList,
+  },
 ];
 
 const router = new VueRouter({
