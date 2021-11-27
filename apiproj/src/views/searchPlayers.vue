@@ -213,14 +213,14 @@ export default {
                     console.log(championMastery)
                     let userKeys = []
                     let points = []
-/*                    championMastery.forEach(e => {
+                    championMastery.forEach(e => {
                         const championId = e.championId
                         const championMastery = e.championPoints
-                        const comma = championMastery.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
-                        points.push(comma)
+                    /*   const comma = championMastery.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") */
+                        points.push(championMastery)
                         userKeys.push(championId)
                     });
-*/
+
                     this.summonerInfo[0].masteryPoints = points
                     let storage = []
                     let storageTop = []
