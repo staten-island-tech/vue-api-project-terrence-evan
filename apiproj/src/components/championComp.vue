@@ -53,6 +53,7 @@ export default {
     flex-direction: column;
     align-items: center;
     width: 100%;
+    cursor: pointer;
 }
 
 .champion-list {
@@ -78,4 +79,16 @@ export default {
     font-size: 1rem;
     padding: 1rem;
 }
+
+@media only screen and (max-width: 600px) {
+    #champion-blurb {
+        display: none;
+    }
+
+    #championImage {
+        width: 12vw;
+    }
+}
+
+
 </style>
